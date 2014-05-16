@@ -67,11 +67,11 @@ The instructions on [the go-bindata github repo](https://github.com/jteeuwen/go-
 
 You can now run the command directly to re-build the bindata:
 
-    $GOPATH/src/github.com/jteeuwen/go-bindata/go-bindata/go-bindata data/
+    $GOPATH/src/github.com/jteeuwen/go-bindata/go-bindata/go-bindata data/...
 
 or copy it into your path then run it:
 
-    go-bindata data/
+    go-bindata data/...
 
 ### Testing
 
