@@ -116,3 +116,7 @@ Take a look at the TODO list or known issues for some inspiration if you need it
 * [The Ruby download page](http://docs.docker.io/reference/api/docker_remote_api_v1.10/)
 * [The go-dockerclient lib](https://github.com/fsouza/go-dockerclient)
 * [go-bindata Github page](github.com/jteeuwen/go-bindata)
+
+## LICENSE
+
+See LICENSE.md
