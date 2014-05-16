@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/fsouza/go-dockerclient"
-	// "github.com/jteeuwen/go-bindata"
 	"github.com/wsxiaoys/terminal/color"
 	"io"
 	"net/url"
