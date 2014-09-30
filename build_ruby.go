@@ -59,10 +59,26 @@ func main() {
 	app.Usage = "Build ruby debs from source for Ubuntu"
 
 	app.Flags = []cli.Flag{
-		cli.StringFlag{"ruby, r", "", "Required. The version to build, eg. 2.1.0 (for recent versions with no patch release) or 2.0.0-p451"},
-		cli.StringFlag{"distro, d", "ubuntu:12.04", "Which distro to use for the build"},
-		cli.StringFlag{"arch, a", "amd64", "Arch to use in package filename, eg: 'none', 'all', 'amd64' etc."},
-		cli.StringFlag{"iteration, i", "", "eg: 37s~precise"},
+		cli.StringFlag{
+			Name:  "ruby, r",
+			Value: "",
+			Usage: "Required. The version to build, eg. 2.1.0 (for recent versions with no patch release) or 2.0.0-p451",
+		},
+		cli.StringFlag{
+			Name:  "distro, d",
+			Value: "ubuntu:12.04",
+			Usage: "Which distro to use for the build",
+		},
+		cli.StringFlag{
+			Name:  "arch, a",
+			Value: "amd64",
+			Usage: "Arch to use in package filename, eg: 'none', 'all', 'amd64' etc.",
+		},
+		cli.StringFlag{
+			Name:  "iteration, i",
+			Value: "",
+			Usage: "eg: 37s~precise",
+		},
 	}
 	app.Action = buildRuby
 	app.Run(os.Args)
