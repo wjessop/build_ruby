@@ -1,0 +1,8 @@
+FROM ubuntu:14.04
+
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install -y libc6-dev libffi-dev libgdbm-dev libncurses5-dev libreadline-dev libssl-dev libyaml-dev zlib1g-dev
+
+ADD ruby-2.2.2_amd64.deb /tmp/
+RUN dpkg -i /tmp/ruby-2.2.2_amd64.deb

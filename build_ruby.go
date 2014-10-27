@@ -11,6 +11,7 @@ import (
 	"io"
 	"net/url"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"text/template"
@@ -123,7 +124,9 @@ func buildRuby(c *cli.Context) {
 	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), parallel_make_tasks)
 	color.Println("@{g!}Using Dockerfile:")
 	color.Printf("@{gc}%s\n", dockerfile)
-	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile)
+
+	var patch_file_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
+	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_paths)
 
 	image_name := fmt.Sprintf("ruby_build_%s_image", uuid.NewRandom())
 	opts := docker.BuildImageOptions{
@@ -177,7 +180,17 @@ func buildRuby(c *cli.Context) {
 	}
 }
 
-func createTarFileFromDockerfile(dockerfile *bytes.Buffer) *bytes.Buffer {
+func patchFilePathsFromRubyVersion(version string) []string {
+	var patch_files []string
+	for _, name := range AssetNames() {
+		if strings.Contains(name, fmt.Sprintf("/%s/", version)) {
+			patch_files = append(patch_files, name)
+		}
+	}
+	return patch_files
+}
+
+func createTarFileFromDockerfile(dockerfile *bytes.Buffer, patch_file_paths []string) *bytes.Buffer {
 	// Create a buffer to write our archive to.
 	buf := new(bytes.Buffer)
 
@@ -196,6 +209,26 @@ func createTarFileFromDockerfile(dockerfile *bytes.Buffer) *bytes.Buffer {
 
 	if _, err := tw.Write(dockerfile.Bytes()); err != nil {
 		panic(err)
+	}
+
+	for _, path := range patch_file_paths {
+		asset_bytes, err := Asset(path)
+		if err != nil {
+			panic(err)
+		}
+
+		// We store the patch files flat in the root dir, hence the Base call
+		hdr := &tar.Header{
+			Name: filepath.Base(path),
+			Size: int64(len(asset_bytes)),
+		}
+		if err := tw.WriteHeader(hdr); err != nil {
+			panic(err)
+		}
+
+		if _, err := tw.Write(asset_bytes); err != nil {
+			panic(err)
+		}
 	}
 
 	// Make sure to check the error on Close.

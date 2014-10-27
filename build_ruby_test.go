@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
+	"path/filepath"
 	"testing"
 )
 
@@ -132,25 +133,35 @@ func Test_rubyPackageFileName(t *testing.T) {
 }
 
 func Test_createTarFileFromDockerfile(t *testing.T) {
-	tar_in_buffer := createTarFileFromDockerfile(bytes.NewBufferString("foo"))
+	patch_files := []string{"Dockerfile", "data/patches/1.0.0/01_for_tests", "data/patches/1.0.0/02_for_tests"}
+	file_data := []string{"foo", "bar", "baz"}
+
+	tar_in_buffer := createTarFileFromDockerfile(bytes.NewBufferString("foo"), patch_files[1:3])
 
 	var tar_out *tar.Reader = tar.NewReader(tar_in_buffer)
 
-	// Get the header so we can check the name of the only entry we care about
-	tar_header, err := tar_out.Next()
-	if err != nil {
-		panic(err)
-	}
+	for i, filename := range patch_files {
+		// Get the header so we can check the names of the files
+		tar_header, err := tar_out.Next()
+		if err != nil {
+			panic(err)
+		}
 
-	// Get the data to make sure our foo made it through
-	var out_bytes []byte
-	out_bytes, err = ioutil.ReadAll(tar_out)
-	if err != nil {
-		panic(err)
-	}
+		var out_bytes []byte
+		out_bytes, err = ioutil.ReadAll(tar_out)
+		if err != nil {
+			panic(err)
+		}
 
-	assert.Equal(t, tar_header.Name, "Dockerfile")
-	assert.Equal(t, string(out_bytes), "foo")
+		assert.Equal(t, tar_header.Name, filepath.Base(filename))
+		assert.Equal(t, string(out_bytes), file_data[i])
+	}
+}
+
+func Test_patchFilePathsFromRubyVersion(t *testing.T) {
+	patches := patchFilePathsFromRubyVersion("1.0.0")
+	expected_patches := []string{"data/patches/1.0.0/01_for_tests", "data/patches/1.0.0/02_for_tests"}
+	assert.Equal(t, patches, expected_patches)
 }
 
 func Test_copyPackageFromContainerToLocalFs(t *testing.T) {
