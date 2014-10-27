@@ -25,9 +25,11 @@ Next run:
 You will get a message like this:
 
     To connect the docker client to the Docker daemon, please set:
-    export DOCKER_HOST=tcp://localhost:4243
+    export DOCKER_HOST=tcp://192.168.59.104:2376
+    export DOCKER_CERT_PATH=/Users/will/.boot2docker/certs/boot2docker-vm
+    export DOCKER_TLS_VERIFY=1
 
-Run the export you are given. Now run this command (may take a few minutes):
+Run the exports you are given. Now run this command (may take a few minutes):
 
     boot2docker down
     for i in {49000..49900}; do
