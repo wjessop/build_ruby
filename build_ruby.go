@@ -135,7 +135,8 @@ func buildRuby(c *cli.Context) {
 	color.Println("@{g!}Using Dockerfile:")
 	color.Printf("@{gc}%s\n", dockerfile)
 
-	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_full_paths)
+	var patch_file_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
+	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_paths)
 
 	image_name := fmt.Sprintf("ruby_build_%s_image", uuid.NewRandom())
 	opts := docker.BuildImageOptions{
@@ -196,7 +197,9 @@ func patchFilePathsFromRubyVersion(version string) []string {
 			patch_files = append(patch_files, name)
 		}
 	}
+
 	color.Printf("@{g}Found patch files for current Ruby version: %v\n", patch_files)
+
 	return patch_files
 }
 
