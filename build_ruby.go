@@ -42,10 +42,17 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	u.Scheme = "http"
+	u.Scheme = "https"
 	docker_endpoint = u.String()
 
 	c, err := docker.NewClient(docker_endpoint)
+
+	tr, err := NewHTTPSClient(os.Getenv("DOCKER_CERT_PATH"))
+	if err != nil {
+		panic(err)
+	}
+	c.HTTPClient = tr
+
 	if err != nil {
 		panic(err)
 	}
