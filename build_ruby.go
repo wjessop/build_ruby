@@ -139,7 +139,8 @@ func buildRuby(c *cli.Context) {
 
 	color.Printf("@{g!}Creating container with from image id %s\n", image.ID)
 	config := docker.Config{AttachStdout: false, AttachStdin: false, Image: image.ID, Cmd: []string{"date"}}
-	create_container_opts := docker.CreateContainerOptions{Name: image.ID, Config: &config}
+	container_name := fmt.Sprintf("ruby_build_%s_container", uuid.NewRandom())
+	create_container_opts := docker.CreateContainerOptions{Name: container_name, Config: &config}
 	container, err := docker_client.CreateContainer(create_container_opts)
 	if err != nil {
 		panic(err)
