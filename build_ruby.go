@@ -109,7 +109,7 @@ func buildRuby(c *cli.Context) {
 	color.Printf("@{gc}%s\n", dockerfile)
 	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile)
 
-	image_name := fmt.Sprintf("%s_%s", "ruby_build", uuid.NewRandom())
+	image_name := fmt.Sprintf("ruby_build_%s_image", uuid.NewRandom())
 	opts := docker.BuildImageOptions{
 		Name:           image_name,
 		NoCache:        false,
