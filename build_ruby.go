@@ -146,8 +146,10 @@ func buildRuby(c *cli.Context) {
 		panic(err)
 	}
 
+	// See https://github.com/wjessop/build_ruby/issues/2
 	if err := docker_client.StopContainer(container.ID, 1); err != nil {
-		panic(err)
+		// panic(err)
+		color.Printf("@{f}Failed to stop container %d, error was: %s\n", container.ID, err.Error())
 	}
 
 	copyPackageFromContainerToLocalFs(container, rubyPackageFileName(c.String("ruby"), c.String("iteration"), c.String("arch")))
