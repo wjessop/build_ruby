@@ -1,0 +1,38 @@
+FROM {{.Distro}}
+RUN echo "deb http://security.ubuntu.com/ubuntu lucid-security main" >> /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get install -y ruby1.9.1-full build-essential \
+    libc6-dev libffi-dev libgdbm-dev libncurses5-dev \
+    libreadline-dev libssl-dev libyaml-dev zlib1g-dev \
+    libopenssl-ruby1.9.1 ruby1.9.1-dev curl
+RUN curl http://production.cf.rubygems.org/rubygems/rubygems-2.4.2.tgz |tar oxzC /tmp
+RUN cd /tmp/rubygems-2.4.2 && ruby1.9.1 setup.rb
+RUN gem1.9.1 install fpm --bindir=/usr/bin --no-rdoc --no-ri
+RUN curl {{.DownloadUrl}}|tar oxzC /tmp
+WORKDIR /tmp/ruby-{{.RubyVersion}}
+RUN CFLAGS="-march=native -O3" ./configure \
+  --prefix=/opt/ruby{{.RubyVersion}} \
+  --enable-shared \
+  --disable-install-doc \
+  --enable-load-relative
+RUN make -j{{.NumCPU}} install DESTDIR=/tmp/fpm
+
+WORKDIR /
+RUN fpm \
+    -s dir \
+    -t deb \
+    -n ruby-{{.RubyVersion}} \
+    -a {{.Arch}} \
+    -v {{.RubyVersion}} \
+    {{.Iteration}}
+    -d libc6-dev \
+    -d libffi-dev \
+    -d libgdbm-dev \
+    -d libncurses5-dev \
+    -d libreadline-dev \
+    -d libssl-dev \
+    -d libyaml-dev \
+    -d zlib1g-dev \
+    -C /tmp/fpm \
+    -p /{{.FileName}} \
+    opt

@@ -69,6 +69,51 @@ RUN fpm \
 	assert.Equal(t, dockerFileFromTemplate("ubuntu:12.04", "2.1.34", "amd64", "37s~precise").String(), dockerfile_putput)
 }
 
+// Could do with pushing this out to go-bindata or similar
+func Test_dockerFileFromTemplate_lucid(t *testing.T) {
+	dockerfile_putput := fmt.Sprintf(`FROM ubuntu:10.04
+RUN echo "deb http://security.ubuntu.com/ubuntu lucid-security main" >> /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get install -y ruby1.9.1-full build-essential \
+    libc6-dev libffi-dev libgdbm-dev libncurses5-dev \
+    libreadline-dev libssl-dev libyaml-dev zlib1g-dev \
+    libopenssl-ruby1.9.1 ruby1.9.1-dev curl
+RUN curl http://production.cf.rubygems.org/rubygems/rubygems-2.4.2.tgz |tar oxzC /tmp
+RUN cd /tmp/rubygems-2.4.2 && ruby1.9.1 setup.rb
+RUN gem1.9.1 install fpm --bindir=/usr/bin --no-rdoc --no-ri
+RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tmp
+WORKDIR /tmp/ruby-2.1.34
+RUN CFLAGS="-march=native -O3" ./configure \
+  --prefix=/opt/ruby2.1.34 \
+  --enable-shared \
+  --disable-install-doc \
+  --enable-load-relative
+RUN make -j%d install DESTDIR=/tmp/fpm
+
+WORKDIR /
+RUN fpm \
+    -s dir \
+    -t deb \
+    -n ruby-2.1.34 \
+    -a amd64 \
+    -v 2.1.34 \
+    --iteration 37s~lucid \
+    -d libc6-dev \
+    -d libffi-dev \
+    -d libgdbm-dev \
+    -d libncurses5-dev \
+    -d libreadline-dev \
+    -d libssl-dev \
+    -d libyaml-dev \
+    -d zlib1g-dev \
+    -C /tmp/fpm \
+    -p /ruby-2.1.34_37s~lucid_amd64.deb \
+    opt
+`, runtime.NumCPU())
+
+	assert.Equal(t, dockerFileFromTemplate("ubuntu:10.04", "2.1.34", "amd64", "37s~lucid").String(), dockerfile_putput)
+}
+
 func Test_rubyPackageFileName(t *testing.T) {
 	assert.Equal(t, "ruby-2.1.0_37s~raring_amd64.deb", rubyPackageFileName("2.1.0", "37s~raring", "amd64"))
 }

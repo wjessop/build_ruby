@@ -18,6 +18,9 @@ import (
 
 var (
 	distros = map[string]string{
+		"ubuntu_lucid": "ubuntu:10.04",
+		"ubuntu:10.04": "ubuntu:10.04",
+
 		"ubuntu_precise": "ubuntu:12.04",
 		"ubuntu:12.04":   "ubuntu:12.04",
 
@@ -252,7 +255,16 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string) *bytes
 	download_url := rubyDownloadUrl(ruby_version)
 	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch), runtime.NumCPU()}
 
-	dockerfile_template, err := Asset("data/Dockerfile.template")
+	// This would be way better as a look up table, or with a more formal lookup process
+	fmt.Println(distro)
+	var template_location string
+	if distro == "ubuntu:10.04" {
+		template_location = "data/Dockerfile-lucid.template"
+	} else {
+		template_location = "data/Dockerfile.template"
+	}
+
+	dockerfile_template, err := Asset(template_location)
 	if err != nil {
 		panic(err)
 	}
