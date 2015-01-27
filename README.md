@@ -43,6 +43,15 @@ Now start the boot2docker image:
 
 You can now run docker commands locally on your mac.
 
+## Running it
+
+If the VM got shut down and you want to run build_ruby first start boot2docker:
+
+    boot2docker up
+
+Next, run the exports you are given. Run build_ruby as normal.
+
+
 ### 2. Clone and build this repo
 
     $ git clone git@github.com:wjessop/build_ruby.git
