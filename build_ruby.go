@@ -114,12 +114,13 @@ func buildRuby(c *cli.Context) {
 
 	image_name := fmt.Sprintf("ruby_build_%s_image", uuid.NewRandom())
 	opts := docker.BuildImageOptions{
-		Name:           image_name,
-		NoCache:        false,
-		SuppressOutput: false,
-		RmTmpContainer: false,
-		InputStream:    build_tarfile,
-		OutputStream:   os.Stdout,
+		Name:                image_name,
+		NoCache:             true,
+		SuppressOutput:      false,
+		RmTmpContainer:      true,
+		ForceRmTmpContainer: true,
+		InputStream:         build_tarfile,
+		OutputStream:        os.Stdout,
 	}
 	if err := docker_client.BuildImage(opts); err != nil {
 		panic(err)
