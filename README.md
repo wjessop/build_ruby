@@ -51,7 +51,6 @@ If the VM got shut down and you want to run build_ruby first start boot2docker:
 
 Next, run the exports you are given. Run build_ruby as normal.
 
-
 ### 2. Clone and build this repo
 
     $ git clone git@github.com:wjessop/build_ruby.git
@@ -70,19 +69,25 @@ Developing for build_ruby should be fairly straightforward if you have Docker in
 
 ### Installing go-bindata
 
-The instructions on [the go-bindata github repo](https://github.com/jteeuwen/go-bindata) don't seem accurate (ir at least I couldn't get them to work as advertised) so if you need to install it follow this procedure:
+This project requires go-bindata, you will need to install it.
+
+The instructions on [the go-bindata github repo](https://github.com/jteeuwen/go-bindata) don't seem accurate (rr at least I couldn't get them to work as advertised) so if you need to install it follow this procedure:
 
 1. ````go get github.com/jteeuwen/go-bindata````
 2. cd to the right dir: ````cd $GOPATH/src/github.com/jteeuwen/go-bindata/go-bindata````
 3. Build it: ````go build````
 
-You can now run the command directly to re-build the bindata:
+### Building
 
-    $GOPATH/src/github.com/jteeuwen/go-bindata/go-bindata/go-bindata data/...
+Just run:
 
-or copy it into your path then run it:
+    make
 
-    go-bindata data/...
+If you need to update the deps run:
+
+    make update_deps
+
+See the Makefile for more functions.
 
 ### Testing
 
