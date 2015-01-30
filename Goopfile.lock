@@ -1,0 +1,8 @@
+code.google.com/p/go-uuid/uuid #35bc42037350f0078e3c974c6ea690f1926603ab
+github.com/Sirupsen/logrus #89efc1fea9b8b47f6f6ce72279a7ed9496b4cdb3
+github.com/codegangsta/cli #e1712f381785e32046927f64a7c86fe569203196
+github.com/docker/docker #1dc1b9345109549e619f207f4ecbc30605b4ebb6
+github.com/fsouza/go-dockerclient #0758f407f25a8df60c540b0ec758905192687e14
+github.com/gorilla/context #215affda49addc4c8ef7e2534915df2c8c35c6cd
+github.com/gorilla/mux #e444e69cbd2e2e3e0749a2f3c717cec491552bbf
+github.com/wsxiaoys/terminal/color #9dcaf1d63119a8ac00eef82270eaef08b6aa2328
