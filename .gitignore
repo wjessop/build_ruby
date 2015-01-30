@@ -1,2 +1,2 @@
 ruby*deb
-build_ruby
+bin/build_ruby
