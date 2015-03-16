@@ -55,13 +55,13 @@ Next, run the exports you are given. Run build_ruby as normal.
 
     $ git clone git@github.com:wjessop/build_ruby.git
     $ cd build_ruby
-    $ go build
+    $ make
 
 ## Usage
 
-    $ ./build_ruby -r 2.1.0 -i 37s~precise -d ubuntu:12.04
-    $ ./build_ruby -r 2.1.0 -d ubuntu:13.04
-    $ ./build_ruby -r 2.1.0
+    $ bin/build_ruby -r 2.1.0 -i 37s~precise -d ubuntu:12.04
+    $ bin/build_ruby -r 2.1.0 -d ubuntu:13.04
+    $ bin/build_ruby -r 2.1.0
 
 ## Developing
 
