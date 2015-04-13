@@ -1,6 +1,6 @@
 !<arch>
 __.PKGDEF       0           0     0     644     12903     `
-go object darwin amd64 go1.4.1 X:precisestack
+go object darwin amd64 go1.4.2 X:precisestack
 
 $$
 package tar
@@ -146,7 +146,7 @@ package tar
 
 $$
  _go_.6          0           0     0     644     272596    `
-go object darwin amd64 go1.4.1 X:precisestack
+go object darwin amd64 go1.4.2 X:precisestack
 
 !
   go13ldbytes.aerrors.a

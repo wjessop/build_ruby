@@ -1,6 +1,6 @@
 !<arch>
 __.PKGDEF       0           0     0     644     49694     `
-go object darwin amd64 go1.4.1 X:precisestack
+go object darwin amd64 go1.4.2 X:precisestack
 
 $$
 package context
@@ -399,7 +399,7 @@ package context
 
 $$
 _go_.6          0           0     0     644     48316     `
-go object darwin amd64 go1.4.1 X:precisestack
+go object darwin amd64 go1.4.2 X:precisestack
 
 !
   go13ldnet/http.async.atime.a ş"".Set  À  ¢eH‹%    H;awè    ëêHƒìpH    H‰$è    H‹D$xH    H‰$H‹    H‰\$H‰D$è    H‹\$H‹1íH9ë…i  H‹\$xH‰\$0H    H‰$HÇD$    è    H‹\$H‰\$(H    H‰$H‹    H‰\$H\$0H‰\$H\$(H‰\$è    H‹\$xH‰\$0è    H‹$‹L$H‹D$‰L$`H‰D$hH‰\$XH½ 	nˆñÿÿÿHëH‰\$ H    H‰$H‹    H‰\$H\$0H‰\$H\$ H‰\$è    H‹D$xH    H‰$H‹    H‰\$H‰D$è    H‹\$H‹+H‹œ$€   H‰\$HH‹œ$ˆ   H‰\$PH‹œ$   H‰\$8H‹œ$˜   H‰\$@H    H‰$H‰l$H\$HH‰\$H\$8H‰\$è    H    H‰$è    HƒÄpÃé[ÿÿÿ.

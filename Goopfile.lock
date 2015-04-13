@@ -1,8 +1,8 @@
 code.google.com/p/go-uuid/uuid #35bc42037350f0078e3c974c6ea690f1926603ab
-github.com/Sirupsen/logrus #89efc1fea9b8b47f6f6ce72279a7ed9496b4cdb3
-github.com/codegangsta/cli #e1712f381785e32046927f64a7c86fe569203196
-github.com/docker/docker #1dc1b9345109549e619f207f4ecbc30605b4ebb6
-github.com/fsouza/go-dockerclient #0758f407f25a8df60c540b0ec758905192687e14
+github.com/Sirupsen/logrus #55eb11d21d2a31a3cc93838241d04800f52e823d
+github.com/codegangsta/cli #9b2bd2b3489748d4d0a204fa4eb2ee9e89e0ebc6
+github.com/docker/docker #7ecf4e5d4dfbb0c9adcdea65f51d40fd6d4a1f43
+github.com/fsouza/go-dockerclient #17d39bcb22e8103ba6d1c0cb2530c6434cb870a3
 github.com/gorilla/context #215affda49addc4c8ef7e2534915df2c8c35c6cd
-github.com/gorilla/mux #e444e69cbd2e2e3e0749a2f3c717cec491552bbf
+github.com/gorilla/mux #8096f47503459bcc74d1f4c487b7e6e42e5746b5
 github.com/wsxiaoys/terminal/color #9dcaf1d63119a8ac00eef82270eaef08b6aa2328
