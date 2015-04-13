@@ -34,7 +34,7 @@ RUN apt-get update
 RUN apt-get install -y ruby1.9.3 build-essential \
     libc6-dev libffi-dev libgdbm-dev libncurses5-dev \
     libreadline-dev libssl-dev libyaml-dev zlib1g-dev
-RUN gem install fpm --bindir=/usr/bin --no-rdoc --no-ri
+RUN ["/usr/bin/gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
 RUN apt-get install -y curl
 RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tmp
 WORKDIR /tmp/ruby-2.1.34
