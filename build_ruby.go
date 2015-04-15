@@ -121,12 +121,13 @@ func buildRuby(c *cli.Context) {
 		parallel_make_tasks = runtime.NumCPU()
 	}
 
-	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), parallel_make_tasks)
+	var patch_file_full_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
+
+	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), fileBasePaths(patch_file_full_paths), parallel_make_tasks)
 	color.Println("@{g!}Using Dockerfile:")
 	color.Printf("@{gc}%s\n", dockerfile)
 
-	var patch_file_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
-	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_paths)
+	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_full_paths)
 
 	image_name := fmt.Sprintf("ruby_build_%s_image", uuid.NewRandom())
 	opts := docker.BuildImageOptions{
@@ -187,6 +188,7 @@ func patchFilePathsFromRubyVersion(version string) []string {
 			patch_files = append(patch_files, name)
 		}
 	}
+	color.Printf("@{g}Found patch files for current Ruby version: %v\n", patch_files)
 	return patch_files
 }
 
@@ -212,6 +214,8 @@ func createTarFileFromDockerfile(dockerfile *bytes.Buffer, patch_file_paths []st
 	}
 
 	for _, path := range patch_file_paths {
+		color.Printf("@{g}Adding patch file to the tar: %s (at path %s)\n", patch_file_paths, filepath.Base(path))
+
 		asset_bytes, err := Asset(path)
 		if err != nil {
 			panic(err)
@@ -291,7 +295,7 @@ func packageFormat(distro string) string {
 	}
 }
 
-func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, parallel_make_jobs int) *bytes.Buffer {
+func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patches []string, parallel_make_jobs int) *bytes.Buffer {
 	type buildVars struct {
 		Distro      string
 		RubyVersion string
@@ -300,6 +304,7 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, parall
 		DownloadUrl string
 		FileName    string
 		NumCPU      int
+		Patches     []string
 	}
 
 	var formatted_iteration = ""
@@ -308,7 +313,7 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, parall
 	}
 
 	download_url := rubyDownloadUrl(ruby_version)
-	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), parallel_make_jobs}
+	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch), runtime.NumCPU(), patches, parallel_make_jobs}
 
 	// This would be way better as a look up table, or with a more formal lookup process
 	var template_location string
@@ -355,4 +360,12 @@ func rubyDownloadUrl(version string) string {
 
 func majorMinorVersionOnly(full_version string) string {
 	return strings.Join(strings.SplitN(full_version, ".", 3)[0:2], ".")
+}
+
+func fileBasePaths(full_paths []string) (base_paths []string) {
+	for _, p := range full_paths {
+		base_paths = append(base_paths, filepath.Base(p))
+	}
+
+	return
 }

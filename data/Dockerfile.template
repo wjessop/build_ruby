@@ -6,6 +6,8 @@ RUN apt-get install -y ruby1.9.3 build-essential \
     curl
 RUN ["/usr/bin/gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
 RUN curl {{.DownloadUrl}}|tar oxzC /tmp
+{{range .Patches}}ADD {{.}} /
+{{end}}
 WORKDIR /tmp/ruby-{{.RubyVersion}}
 RUN for i in `/bin/ls /*.patch`; do patch -p0 < $i; done
 RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
