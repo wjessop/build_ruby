@@ -123,20 +123,11 @@ func buildRuby(c *cli.Context) {
 
 	var patch_file_full_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
 
-	var parallel_make_tasks int
-	if c.Int("cpus") != 0 {
-		parallel_make_tasks = c.Int("cpus")
-	} else {
-		parallel_make_tasks = runtime.NumCPU()
-	}
-
 	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), fileBasePaths(patch_file_full_paths), parallel_make_tasks)
-
 	color.Println("@{g!}Using Dockerfile:")
 	color.Printf("@{gc}%s\n", dockerfile)
 
-	var patch_file_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
-	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_paths)
+	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_full_paths)
 
 	image_name := fmt.Sprintf("ruby_build_%s_image", uuid.NewRandom())
 	opts := docker.BuildImageOptions{
