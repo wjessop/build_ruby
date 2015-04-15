@@ -29,7 +29,7 @@ func Test_rubyDownloadUrl(t *testing.T) {
 
 // Could do with pushing this out to go-bindata or similar
 func Test_dockerFileFromTemplate(t *testing.T) {
-	dockerfile_putput := fmt.Sprintf(`FROM ubuntu:12.04
+	dockerfile_output := fmt.Sprintf(`FROM ubuntu:12.04
 RUN apt-get update
 RUN apt-get install -y ruby1.9.3 build-essential \
     libc6-dev libffi-dev libgdbm-dev libncurses5-dev \
