@@ -295,6 +295,14 @@ func packageFormat(distro string) string {
 	}
 }
 
+func packageFormat(distro string) string {
+	if strings.Contains(distro, "centos") || strings.Contains(distro, "rhel") {
+		return ".rpm"
+	} else {
+		return ".deb"
+	}
+}
+
 func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patches []string, parallel_make_jobs int) *bytes.Buffer {
 	type buildVars struct {
 		Distro      string
@@ -313,7 +321,7 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 	}
 
 	download_url := rubyDownloadUrl(ruby_version)
-	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch), runtime.NumCPU(), patches, parallel_make_jobs}
+	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), runtime.NumCPU(), patches, parallel_make_jobs}
 
 	// This would be way better as a look up table, or with a more formal lookup process
 	var template_location string
