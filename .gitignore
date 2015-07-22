@@ -1,2 +1,5 @@
 ruby*deb
 bin/build_ruby
+*.a
+*.o
+*.so
