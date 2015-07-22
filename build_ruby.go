@@ -29,6 +29,8 @@ var (
 
 		"ubuntu_trusty": "ubuntu:14.04",
 		"ubuntu:14.04":  "ubuntu:14.04",
+
+		"centos:6.6":  "centos:6.6",
 	}
 
 	docker_client   *docker.Client
@@ -156,7 +158,7 @@ func buildRuby(c *cli.Context) {
 		color.Printf("@{f}Failed to stop container %d, error was: %s\n", container.ID, err.Error())
 	}
 
-	copyPackageFromContainerToLocalFs(container, rubyPackageFileName(c.String("ruby"), c.String("iteration"), c.String("arch")))
+	copyPackageFromContainerToLocalFs(container, rubyPackageFileName(c.String("ruby"), c.String("iteration"), c.String("arch"), c.String("distro")))
 
 	color.Println("@{g!}Removing container:", container.ID)
 	if err := docker_client.RemoveContainer(docker.RemoveContainerOptions{ID: container.ID, RemoveVolumes: true, Force: false}); err != nil {
@@ -224,7 +226,7 @@ func copyPackageFromContainerToLocalFs(container *docker.Container, filename str
 	io.Copy(out, tar_out)
 }
 
-func rubyPackageFileName(version, iteration, arch string) string {
+func rubyPackageFileName(version, iteration, arch string, distro string) string {
 	var formatted_iteration = ""
 	if iteration != "" {
 		formatted_iteration = "_" + iteration
@@ -234,7 +236,15 @@ func rubyPackageFileName(version, iteration, arch string) string {
 	if arch != "none" {
 		formatted_arch = "_" + arch
 	}
-	return "ruby-" + version + formatted_iteration + formatted_arch + ".deb"
+	return "ruby-" + version + formatted_iteration + formatted_arch + packageFormat(distro)
+}
+
+func packageFormat(distro string) string {
+	if strings.Contains(distro, "centos") || strings.Contains(distro, "rhel") {
+		return ".rpm"
+	} else {
+		return ".deb"
+	}
 }
 
 func dockerFileFromTemplate(distro, ruby_version, arch, iteration string) *bytes.Buffer {
@@ -254,15 +264,15 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string) *bytes
 	}
 
 	download_url := rubyDownloadUrl(ruby_version)
-	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch), runtime.NumCPU()}
+	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), runtime.NumCPU()}
 
 	// This would be way better as a look up table, or with a more formal lookup process
 	fmt.Println(distro)
 	var template_location string
-	if distro == "ubuntu:10.04" {
-		template_location = "data/Dockerfile-lucid.template"
-	} else {
-		template_location = "data/Dockerfile.template"
+	switch distro {
+		case "ubuntu:10.04": template_location = "data/Dockerfile-lucid.template"
+		case "centos:6.6": template_location = "data/Dockerfile-centos.template"
+		default: template_location = "data/Dockerfile.template"
 	}
 
 	dockerfile_template, err := Asset(template_location)
