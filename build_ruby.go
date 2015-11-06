@@ -30,7 +30,7 @@ var (
 		"ubuntu_trusty": "ubuntu:14.04",
 		"ubuntu:14.04":  "ubuntu:14.04",
 
-		"centos:6.6":  "centos:6.6",
+		"centos:6.6": "centos:6.6",
 	}
 
 	docker_client   *docker.Client
@@ -270,9 +270,12 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string) *bytes
 	fmt.Println(distro)
 	var template_location string
 	switch distro {
-		case "ubuntu:10.04": template_location = "data/Dockerfile-lucid.template"
-		case "centos:6.6": template_location = "data/Dockerfile-centos.template"
-		default: template_location = "data/Dockerfile.template"
+	case "ubuntu:10.04":
+		template_location = "data/Dockerfile-lucid.template"
+	case "centos:6.6":
+		template_location = "data/Dockerfile-centos.template"
+	default:
+		template_location = "data/Dockerfile.template"
 	}
 
 	dockerfile_template, err := Asset(template_location)
