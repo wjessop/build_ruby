@@ -1,6 +1,9 @@
 all: assets
 	$(GOPATH)/bin/goop go build -o bin/build_ruby
 
+test:
+	$(GOPATH)/bin/goop go test
+
 assets:
 	${GOPATH}/src/github.com/jteeuwen/go-bindata/go-bindata/go-bindata data/...
 
