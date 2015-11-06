@@ -267,7 +267,6 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string) *bytes
 	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), runtime.NumCPU()}
 
 	// This would be way better as a look up table, or with a more formal lookup process
-	fmt.Println(distro)
 	var template_location string
 	switch distro {
 	case "ubuntu:10.04":
