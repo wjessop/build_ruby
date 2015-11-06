@@ -115,7 +115,7 @@ RUN fpm \
 }
 
 func Test_rubyPackageFileName(t *testing.T) {
-	assert.Equal(t, "ruby-2.1.0_37s~raring_amd64.deb", rubyPackageFileName("2.1.0", "37s~raring", "amd64"))
+	assert.Equal(t, "ruby-2.1.0_37s~raring_amd64.deb", rubyPackageFileName("2.1.0", "37s~raring", "amd64", "ubuntu:12.04"))
 }
 
 func Test_createTarFileFromDockerfile(t *testing.T) {
