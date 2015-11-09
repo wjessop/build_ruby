@@ -10,7 +10,7 @@ RUN cd /tmp/rubygems-2.4.2 && ruby1.9.1 setup.rb
 RUN gem1.9.1 install fpm --bindir=/usr/bin --no-rdoc --no-ri
 RUN curl {{.DownloadUrl}}|tar oxzC /tmp
 WORKDIR /tmp/ruby-{{.RubyVersion}}
-RUN CFLAGS="-march=native -O3" ./configure \
+RUN CFLAGS="-march=x86-64 -O3" ./configure \
   --prefix=/opt/ruby{{.RubyVersion}} \
   --enable-shared \
   --disable-install-doc \
