@@ -63,7 +63,7 @@ See the Makefile for more functions.
 
 ### Testing
 
-    go test
+    make test
 
 ## Troubleshooting
 
