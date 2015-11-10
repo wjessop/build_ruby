@@ -123,7 +123,15 @@ func buildRuby(c *cli.Context) {
 
 	var patch_file_full_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
 
+	var parallel_make_tasks int
+	if c.Int("cpus") != 0 {
+		parallel_make_tasks = c.Int("cpus")
+	} else {
+		parallel_make_tasks = runtime.NumCPU()
+	}
+
 	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), fileBasePaths(patch_file_full_paths), parallel_make_tasks)
+
 	color.Println("@{g!}Using Dockerfile:")
 	color.Printf("@{gc}%s\n", dockerfile)
 
@@ -321,7 +329,7 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 	}
 
 	download_url := rubyDownloadUrl(ruby_version)
-	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), runtime.NumCPU(), patches, parallel_make_jobs}
+	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), patches, parallel_make_jobs}
 
 	// This would be way better as a look up table, or with a more formal lookup process
 	var template_location string
