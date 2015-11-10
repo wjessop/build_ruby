@@ -5,7 +5,7 @@ test:
 	$(GOPATH)/bin/goop go test
 
 assets:
-	${GOPATH}/src/github.com/jteeuwen/go-bindata/go-bindata/go-bindata data/...
+	${GOPATH}/bin/go-bindata data/...
 
 clean:
 	rm -f bin/*
