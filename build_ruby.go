@@ -91,6 +91,10 @@ func main() {
 			Value: "",
 			Usage: "eg: 37s~precise",
 		},
+		cli.IntFlag{
+			Name:  "cpus, c",
+			Usage: "The number of CPUs to use for the make process, defaults to the number in the local machine. Change if you're running on a remote docker host",
+		},
 	}
 	app.Action = buildRuby
 	app.Run(os.Args)
@@ -109,7 +113,14 @@ func buildRuby(c *cli.Context) {
 		os.Exit(1)
 	}
 
-	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"))
+	var parallel_make_tasks int
+	if c.Int("cpus") != 0 {
+		parallel_make_tasks = c.Int("cpus")
+	} else {
+		parallel_make_tasks = runtime.NumCPU()
+	}
+
+	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), parallel_make_tasks)
 	color.Println("@{g!}Using Dockerfile:")
 	color.Printf("@{gc}%s\n", dockerfile)
 	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile)
@@ -247,7 +258,7 @@ func packageFormat(distro string) string {
 	}
 }
 
-func dockerFileFromTemplate(distro, ruby_version, arch, iteration string) *bytes.Buffer {
+func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, parallel_make_jobs int) *bytes.Buffer {
 	type buildVars struct {
 		Distro      string
 		RubyVersion string
@@ -264,7 +275,7 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string) *bytes
 	}
 
 	download_url := rubyDownloadUrl(ruby_version)
-	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), runtime.NumCPU()}
+	dockerfile_vars := buildVars{distro, ruby_version, arch, formatted_iteration, download_url, rubyPackageFileName(ruby_version, iteration, arch, distro), parallel_make_jobs}
 
 	// This would be way better as a look up table, or with a more formal lookup process
 	var template_location string

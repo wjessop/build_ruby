@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
-	"runtime"
 	"testing"
 )
 
@@ -64,9 +63,9 @@ RUN fpm \
     -C /tmp/fpm \
     -p /ruby-2.1.34_37s~precise_amd64.deb \
     opt
-`, runtime.NumCPU())
+`, 18)
 
-	assert.Equal(t, dockerFileFromTemplate("ubuntu:12.04", "2.1.34", "amd64", "37s~precise").String(), dockerfile_putput)
+	assert.Equal(t, dockerFileFromTemplate("ubuntu:12.04", "2.1.34", "amd64", "37s~precise", 18).String(), dockerfile_putput)
 }
 
 // Could do with pushing this out to go-bindata or similar
@@ -109,9 +108,9 @@ RUN fpm \
     -C /tmp/fpm \
     -p /ruby-2.1.34_37s~lucid_amd64.deb \
     opt
-`, runtime.NumCPU())
+`, 23)
 
-	assert.Equal(t, dockerFileFromTemplate("ubuntu:10.04", "2.1.34", "amd64", "37s~lucid").String(), dockerfile_putput)
+	assert.Equal(t, dockerFileFromTemplate("ubuntu:10.04", "2.1.34", "amd64", "37s~lucid", 23).String(), dockerfile_putput)
 }
 
 func Test_rubyPackageFileName(t *testing.T) {
