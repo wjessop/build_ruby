@@ -4,7 +4,7 @@
 
 ## Installation
 
-### 1 Install Docker and go-bindata:
+### 1 Install Docker and tools:
 
 #### 1.1 Linux
 
@@ -21,9 +21,9 @@ Next, [create and start a docker-machine image](https://docs.docker.com/machine/
 
 You can now run docker commands locally on your mac.
 
-#### 1.2 Install go-bindata
+#### 1.2 Install pre-requisite tools
 
-    $ go get github.com/jteeuwen/go-bindata/go-bindata...
+    $ make setup
 
 ## Running it
 

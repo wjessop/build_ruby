@@ -1,6 +1,10 @@
 all: assets
 	$(GOPATH)/bin/goop go build -o bin/build_ruby
 
+setup:
+	go get -u github.com/jteeuwen/go-bindata/go-bindata...
+	go get -u github.com/nitrous-io/goop
+
 test:
 	$(GOPATH)/bin/goop go test
 
