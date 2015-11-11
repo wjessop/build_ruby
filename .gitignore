@@ -4,3 +4,4 @@ bin/build_ruby
 *.a
 *.o
 *.so
+.DS_Store
