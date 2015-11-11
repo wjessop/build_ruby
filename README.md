@@ -57,6 +57,15 @@ You can now run docker commands locally on your mac.
     $ bin/build_ruby -r 2.1.0 -d ubuntu:13.04
     $ bin/build_ruby -r 2.1.0
 
+### Other options
+
+#### -c, --cpus
+
+Specify the number of CPUs to use in the make process. If omitted defaults to the number of CPUs in your local machine (useful if you're building using a local Docker daemon), but if you're building on a VM, or a remote Docker installation specify this number to match the CPUs available:
+
+    $ bin/build_ruby -r 2.1.0 -c 16
+    $ bin/build_ruby -r 2.1.0 --cpus 16
+
 ### Building
 
 Just run:
