@@ -42,7 +42,8 @@ RUN CFLAGS="-march=x86-64 -O3" ./configure \
   --enable-shared \
   --disable-install-doc \
   --enable-load-relative
-RUN make -j%d install DESTDIR=/tmp/fpm
+RUN make -j%d
+RUN make install DESTDIR=/tmp/fpm
 
 WORKDIR /
 RUN fpm \
@@ -87,7 +88,8 @@ RUN CFLAGS="-march=x86-64 -O3" ./configure \
   --enable-shared \
   --disable-install-doc \
   --enable-load-relative
-RUN make -j%d install DESTDIR=/tmp/fpm
+RUN make -j%d
+RUN make install DESTDIR=/tmp/fpm
 
 WORKDIR /
 RUN fpm \
