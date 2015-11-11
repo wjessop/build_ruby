@@ -39,20 +39,6 @@ You can now run docker commands locally on your mac.
     $ bin/build_ruby -r 2.1.0 -d ubuntu:13.04
     $ bin/build_ruby -r 2.1.0
 
-## Developing
-
-Developing for build_ruby should be fairly straightforward if you have Docker installed. The only complication is if you change any files in data/, then you will need to re-run the go-bindata command, and that needs installing first:
-
-### Installing go-bindata
-
-This project requires go-bindata, you will need to install it.
-
-The instructions on [the go-bindata github repo](https://github.com/jteeuwen/go-bindata) don't seem accurate (rr at least I couldn't get them to work as advertised) so if you need to install it follow this procedure:
-
-1. ````go get github.com/jteeuwen/go-bindata````
-2. cd to the right dir: ````cd $GOPATH/src/github.com/jteeuwen/go-bindata/go-bindata````
-3. Build it: ````go build````
-
 ### Building
 
 Just run:
