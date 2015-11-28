@@ -306,8 +306,8 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 		Iteration   string
 		DownloadUrl string
 		FileName    string
-		NumCPU      int
 		Patches     []string
+		NumCPU      int
 	}
 
 	var formatted_iteration = ""
