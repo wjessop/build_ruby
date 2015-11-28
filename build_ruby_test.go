@@ -94,7 +94,7 @@ RUN apt-get install -y ruby1.9.1-full build-essential \
     libopenssl-ruby1.9.1 ruby1.9.1-dev curl
 RUN curl http://production.cf.rubygems.org/rubygems/rubygems-2.4.2.tgz |tar oxzC /tmp
 RUN cd /tmp/rubygems-2.4.2 && ruby1.9.1 setup.rb
-RUN gem1.9.1 install fpm --bindir=/usr/bin --no-rdoc --no-ri
+RUN ["/usr/bin/gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
 RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tmp
 ADD 01_strict_hostname_checking.patch /
 
