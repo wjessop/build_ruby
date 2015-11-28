@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strings"
 	"text/template"
 )
@@ -189,8 +190,8 @@ func patchFilePathsFromRubyVersion(version string) []string {
 		}
 	}
 
+	sort.Strings(patch_files)
 	color.Printf("@{g}Found patch files for current Ruby version: %v\n", patch_files)
-
 	return patch_files
 }
 
@@ -287,14 +288,6 @@ func rubyPackageFileName(version, iteration, arch string, distro string) string 
 		formatted_arch = "_" + arch
 	}
 	return "ruby-" + version + formatted_iteration + formatted_arch + packageFormat(distro)
-}
-
-func packageFormat(distro string) string {
-	if strings.Contains(distro, "centos") || strings.Contains(distro, "rhel") {
-		return ".rpm"
-	} else {
-		return ".deb"
-	}
 }
 
 func packageFormat(distro string) string {
