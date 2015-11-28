@@ -1,0 +1,38 @@
+diff --git ext/readline/extconf.rb ext/readline/extconf.rb
+index 4920137..8e81253 100644
+--- ext/readline/extconf.rb
++++ ext/readline/extconf.rb
+@@ -19,6 +19,10 @@ def readline.have_func(func)
+   return super(func, headers)
+ end
+
++def readline.have_type(type)
++  return super(type, headers)
++end
++
+ dir_config('curses')
+ dir_config('ncurses')
+ dir_config('termcap')
+@@ -93,4 +97,9 @@ readline.have_func("remove_history")
+ readline.have_func("clear_history")
+ readline.have_func("rl_redisplay")
+ readline.have_func("rl_insert_text")
++
++unless readline.have_type("rl_hook_func_t")
++  $defs << "-Drl_hook_func_t=Function"
++end
++
+ create_makefile("readline")
+diff --git ext/readline/readline.c ext/readline/readline.c
+index 3e7feea..482bf80 100644
+--- ext/readline/readline.c
++++ ext/readline/readline.c
+@@ -1883,7 +1883,7 @@ Init_readline()
+
+     rl_attempted_completion_function = readline_attempted_completion_function;
+ #if defined(HAVE_RL_PRE_INPUT_HOOK)
+-    rl_pre_input_hook = (Function *)readline_pre_input_hook;
++    rl_pre_input_hook = (rl_hook_func_t *)readline_pre_input_hook;
+ #endif
+ #ifdef HAVE_RL_CATCH_SIGNALS
+     rl_catch_signals = 0;
