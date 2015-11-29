@@ -37,7 +37,7 @@ RUN apt-get install -y ruby1.9.3 build-essential \
 RUN ["/usr/bin/gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
 RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tmp
 WORKDIR /tmp/ruby-2.1.34
-RUN CFLAGS="-march=x86-64 -O3" ./configure \
+RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
   --prefix=/opt/ruby2.1.34 \
   --enable-shared \
   --disable-install-doc \
@@ -89,7 +89,7 @@ RUN cd /tmp/rubygems-2.4.2 && ruby1.9.1 setup.rb
 RUN gem1.9.1 install fpm --bindir=/usr/bin --no-rdoc --no-ri
 RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tmp
 WORKDIR /tmp/ruby-2.1.34
-RUN CFLAGS="-march=x86-64 -O3" ./configure \
+RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
   --prefix=/opt/ruby2.1.34 \
   --enable-shared \
   --disable-install-doc \
