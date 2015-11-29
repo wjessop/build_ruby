@@ -5,7 +5,7 @@ setup:
 	go get -u github.com/jteeuwen/go-bindata/go-bindata...
 	go get -u github.com/nitrous-io/goop
 
-test:
+test: assets
 	$(GOPATH)/bin/goop go test
 
 assets:
