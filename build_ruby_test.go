@@ -42,6 +42,12 @@ RUN CFLAGS="-march=x86-64 -O3" ./configure \
   --enable-shared \
   --disable-install-doc \
   --enable-load-relative
+# Seems to only affect some 1.9 series Rubies, but the combined make step:
+#
+#     RUN make -j8 install DESTDIR=/tmp/fpm
+#
+# that rane the make then make install, was broken. Splitting it up into
+# two separate commands works fine:
 RUN make -j%d
 RUN make install DESTDIR=/tmp/fpm
 
@@ -88,6 +94,12 @@ RUN CFLAGS="-march=x86-64 -O3" ./configure \
   --enable-shared \
   --disable-install-doc \
   --enable-load-relative
+# Seems to only affect some 1.9 series Rubies, but the combined make step:
+#
+#     RUN make -j8 install DESTDIR=/tmp/fpm
+#
+# that rane the make then make install, was broken. Splitting it up into
+# two separate commands works fine:
 RUN make -j%d
 RUN make install DESTDIR=/tmp/fpm
 
