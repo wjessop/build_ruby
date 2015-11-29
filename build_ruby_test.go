@@ -40,12 +40,8 @@ RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tm
 ADD 01_strict_hostname_checking.patch /
 
 WORKDIR /tmp/ruby-2.1.34
-<<<<<<< ef5a1b037ce92e5aaaa1d2bff71986edb8473bb1
-RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
-=======
 RUN for i in `+"`/bin/ls /*.patch`"+`; do patch -p0 < $i; done
-RUN CFLAGS="-march=x86-64 -O3" ./configure \
->>>>>>> Add support for per ruby version patches
+RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
   --prefix=/opt/ruby2.1.34 \
   --enable-shared \
   --disable-install-doc \
@@ -99,13 +95,8 @@ RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tm
 ADD 01_strict_hostname_checking.patch /
 
 WORKDIR /tmp/ruby-2.1.34
-<<<<<<< ef5a1b037ce92e5aaaa1d2bff71986edb8473bb1
-RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
-=======
-
 RUN for i in `+"`/bin/ls /*.patch`"+`; do patch -p0 < $i; done
-RUN CFLAGS="-march=x86-64 -O3" ./configure \
->>>>>>> Add support for per ruby version patches
+RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
   --prefix=/opt/ruby2.1.34 \
   --enable-shared \
   --disable-install-doc \
