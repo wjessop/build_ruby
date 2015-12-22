@@ -50,7 +50,7 @@ RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused
 #
 #     RUN make -j8 install DESTDIR=/tmp/fpm
 #
-# that rane the make then make install, was broken. Splitting it up into
+# that ran the make then make install, was broken. Splitting it up into
 # two separate commands works fine:
 RUN make -j%d
 RUN make install DESTDIR=/tmp/fpm
@@ -105,7 +105,7 @@ RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused
 #
 #     RUN make -j8 install DESTDIR=/tmp/fpm
 #
-# that rane the make then make install, was broken. Splitting it up into
+# that ran the make then make install, was broken. Splitting it up into
 # two separate commands works fine:
 RUN make -j%d
 RUN make install DESTDIR=/tmp/fpm
