@@ -95,7 +95,7 @@ func dataDockerfileCentosTemplate() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/Dockerfile-centos.template", size: 1640, mode: os.FileMode(420), modTime: time.Unix(1450819869, 0)}
+	info := bindataFileInfo{name: "data/Dockerfile-centos.template", size: 1640, mode: os.FileMode(420), modTime: time.Unix(1450821337, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -115,7 +115,7 @@ func dataDockerfileLucidTemplate() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/Dockerfile-lucid.template", size: 1852, mode: os.FileMode(420), modTime: time.Unix(1450819865, 0)}
+	info := bindataFileInfo{name: "data/Dockerfile-lucid.template", size: 1852, mode: os.FileMode(420), modTime: time.Unix(1450821337, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -135,7 +135,7 @@ func dataDockerfileTemplate() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/Dockerfile.template", size: 1583, mode: os.FileMode(420), modTime: time.Unix(1450819858, 0)}
+	info := bindataFileInfo{name: "data/Dockerfile.template", size: 1583, mode: os.FileMode(420), modTime: time.Unix(1450821337, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
