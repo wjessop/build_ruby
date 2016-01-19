@@ -3,8 +3,12 @@ RUN yum update -y
 RUN yum install -y gcc gcc-c++ make automake kernel-devel rpm-build \
     glibc-devel libffi-devel gdbm-devel ncurses-devel \
     readline-devel openssl-devel libyaml-devel zlib-devel \
-    ruby ruby-devel rubygems curl tar
-RUN ["/usr/bin/gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
+    curl tar
+# Install a more modern version of Ruby. A dep of fpm got updated and isn't
+# compatible with ruby 1.8.7 which is what is installed via yum
+ADD https://sendcat.com/dl/BadJLd0pAxQ1JVCJ4jLCtf5MrF8E3A9bn2vKSmanZfOt1DQQ91zjCgw/1651/ruby-2.3.0_37s~centos_amd64.rpm /tmp/
+RUN rpm -i /tmp/ruby-2.3.0_37s~centos_amd64.rpm
+RUN ["/opt/ruby2.3.0/bin/gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
 RUN curl {{.DownloadUrl}}|tar oxzC /tmp
 {{range .Patches}}ADD {{.}} /
 {{end}}
