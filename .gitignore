@@ -5,3 +5,4 @@ bin/build_ruby
 *.o
 *.so
 .DS_Store
+bindata.go
