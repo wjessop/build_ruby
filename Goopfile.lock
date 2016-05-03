@@ -1,4 +1,13 @@
-code.google.com/p/go-uuid/uuid #35bc42037350f0078e3c974c6ea690f1926603ab
-github.com/codegangsta/cli #bca61c476e3c752594983e4c9bcd5f62fb09f157
-github.com/fsouza/go-dockerclient #f6e9f5396e0e8f34472efe443d0cb7f9af162b88
-github.com/wsxiaoys/terminal/color #9dcaf1d63119a8ac00eef82270eaef08b6aa2328
+github.com/Sirupsen/logrus #cd7d1bbe41066b6c1f19780f895901052150a575
+github.com/codegangsta/cli #839f07bfe4819fa1434fa907d0804ce6ec45a5df
+github.com/docker/docker #9837ec4da53f15f9120d53a6e1517491ba8b0261
+github.com/docker/go-units #5d2041e26a699eaca682e2ea41c8f891e1060444
+github.com/fsouza/go-dockerclient #76d4d89604ebd2959c14b84b83163ad7f358e85d
+github.com/google/uuid/uuid #f3f4b54b2fabcf1f11dcc939025bb0c109b00ed8
+github.com/gorilla/context #a8d44e7d8e4d532b6a27a02dd82abb31cc1b01bd
+github.com/gorilla/mux #9c19ed558d5df4da88e2ade9c8940d742aef0e7e
+github.com/hashicorp/go-cleanhttp #ad28ea4487f05916463e2423a55166280e8254b5
+github.com/opencontainers/runc #89c3c97a8482f3a57cd4bb683df1a7b2c61405d8
+github.com/wsxiaoys/terminal/color #3775a2a6a7eb5730a2385186c073d262c530e1af
+golang.org/x/net #35ec611a141ee705590b9eb64d673f9e6dfeb1ac
+gopkg.in/yaml.v2 #a83829b6f1293c91addabc89d0571c246397bbf4
