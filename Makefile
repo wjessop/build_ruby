@@ -3,7 +3,7 @@ all: assets
 
 setup:
 	go get -u github.com/jteeuwen/go-bindata/go-bindata...
-	go get -u github.com/nitrous-io/goop
+	go get -u github.com/karmakaze/goop
 
 test: assets
 	$(GOPATH)/bin/goop go test

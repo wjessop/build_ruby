@@ -3,7 +3,7 @@ package main
 import (
 	"archive/tar"
 	"bytes"
-	"code.google.com/p/go-uuid/uuid"
+	"github.com/google/uuid"
 	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/fsouza/go-dockerclient"
@@ -130,7 +130,11 @@ func buildRuby(c *cli.Context) {
 
 	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_full_paths)
 
-	image_name := fmt.Sprintf("ruby_build_%s_image", uuid.NewRandom())
+	image_uuid, err := uuid.NewRandom()
+	if err != nil {
+		panic(err)
+	}
+	image_name := fmt.Sprintf("ruby_build_%s_image", image_uuid)
 	opts := docker.BuildImageOptions{
 		Name:                image_name,
 		NoCache:             true,
@@ -161,7 +165,11 @@ func buildRuby(c *cli.Context) {
 
 	color.Printf("@{g!}Creating container with from image id %s\n", image.ID)
 	config := docker.Config{AttachStdout: false, AttachStdin: false, Image: image.ID, Cmd: []string{"date"}}
-	container_name := fmt.Sprintf("ruby_build_%s_container", uuid.NewRandom())
+	container_uuid, err := uuid.NewRandom()
+	if err != nil {
+		panic(err)
+	}
+	container_name := fmt.Sprintf("ruby_build_%s_container", container_uuid)
 	create_container_opts := docker.CreateContainerOptions{Name: container_name, Config: &config}
 	container, err := docker_client.CreateContainer(create_container_opts)
 	if err != nil {
