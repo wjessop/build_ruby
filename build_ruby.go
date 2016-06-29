@@ -29,6 +29,9 @@ var (
 		"ubuntu_trusty": "ubuntu:14.04",
 		"ubuntu:14.04":  "ubuntu:14.04",
 
+		"ubuntu_xenial": "ubuntu:16.04",
+		"ubuntu:16.04":  "ubuntu:16.04",
+
 		"centos:6.6": "centos:6.6",
 	}
 
