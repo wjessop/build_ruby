@@ -20,9 +20,6 @@ import (
 
 var (
 	distros = map[string]string{
-		"ubuntu_lucid": "ubuntu:10.04",
-		"ubuntu:10.04": "ubuntu:10.04",
-
 		"ubuntu_precise": "ubuntu:12.04",
 		"ubuntu:12.04":   "ubuntu:12.04",
 
@@ -329,8 +326,6 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 	// This would be way better as a look up table, or with a more formal lookup process
 	var template_location string
 	switch distro {
-	case "ubuntu:10.04":
-		template_location = "data/Dockerfile-lucid.template"
 	case "centos:6.6":
 		template_location = "data/Dockerfile-centos.template"
 	default:

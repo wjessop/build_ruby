@@ -79,61 +79,6 @@ RUN fpm \
 	assert.Equal(t, dockerFileFromTemplate("ubuntu:12.04", "2.1.34", "amd64", "37s~precise", []string{"01_strict_hostname_checking.patch"}, 18).String(), dockerfile_output)
 }
 
-// Could do with pushing this out to go-bindata or similar
-func Test_dockerFileFromTemplate_lucid(t *testing.T) {
-	dockerfile_putput := fmt.Sprintf(`FROM ubuntu:10.04
-RUN echo "deb http://security.ubuntu.com/ubuntu lucid-security main" >> /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get install -y ruby1.9.1-full build-essential \
-    libc6-dev libffi-dev libgdbm-dev libncurses5-dev \
-    libreadline-dev libssl-dev libyaml-dev zlib1g-dev \
-    libopenssl-ruby1.9.1 ruby1.9.1-dev curl
-RUN curl http://production.cf.rubygems.org/rubygems/rubygems-2.4.2.tgz |tar oxzC /tmp
-RUN cd /tmp/rubygems-2.4.2 && ruby1.9.1 setup.rb
-RUN ["/usr/bin/gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
-RUN curl http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.34.tar.gz|tar oxzC /tmp
-ADD 01_strict_hostname_checking.patch /
-
-WORKDIR /tmp/ruby-2.1.34
-RUN for i in `+"`/bin/ls /*.patch`"+`; do patch -p0 < $i; done
-RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
-  --prefix=/opt/ruby2.1.34 \
-  --enable-shared \
-  --disable-install-doc \
-  --enable-load-relative
-# Seems to only affect some 1.9 series Rubies, but the combined make step:
-#
-#     RUN make -j8 install DESTDIR=/tmp/fpm
-#
-# that ran the make then make install, was broken. Splitting it up into
-# two separate commands works fine:
-RUN make -j%d
-RUN make install DESTDIR=/tmp/fpm
-
-WORKDIR /
-RUN fpm \
-    -s dir \
-    -t deb \
-    -n ruby-2.1.34 \
-    -a amd64 \
-    -v 2.1.34 \
-    --iteration 37s~lucid \
-    -d libc6-dev \
-    -d libffi-dev \
-    -d libgdbm-dev \
-    -d libncurses5-dev \
-    -d libreadline-dev \
-    -d libssl-dev \
-    -d libyaml-dev \
-    -d zlib1g-dev \
-    -C /tmp/fpm \
-    -p /ruby-2.1.34_37s~lucid_amd64.deb \
-    opt
-`, 23)
-
-	assert.Equal(t, dockerFileFromTemplate("ubuntu:10.04", "2.1.34", "amd64", "37s~lucid", []string{"01_strict_hostname_checking.patch"}, 23).String(), dockerfile_putput)
-}
-
 func Test_rubyPackageFileName(t *testing.T) {
 	assert.Equal(t, "ruby-2.1.0_37s~raring_amd64.deb", rubyPackageFileName("2.1.0", "37s~raring", "amd64", "ubuntu:12.04"))
 }
