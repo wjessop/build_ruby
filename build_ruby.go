@@ -3,10 +3,10 @@ package main
 import (
 	"archive/tar"
 	"bytes"
-	"github.com/google/uuid"
 	"fmt"
 	"github.com/codegangsta/cli"
 	"github.com/fsouza/go-dockerclient"
+	"github.com/google/uuid"
 	"github.com/wsxiaoys/terminal/color"
 	"io"
 	"net/url"
