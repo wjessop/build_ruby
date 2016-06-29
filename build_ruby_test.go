@@ -42,7 +42,7 @@ ADD 01_strict_hostname_checking.patch /
 WORKDIR /tmp/ruby-2.1.34
 RUN for i in `+"`/bin/ls /*.patch`"+`; do patch -p0 < $i; done
 RUN CFLAGS='-march=x86-64 -O3 -fno-fast-math -g3 -ggdb -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat -std=iso9899:1999  -fPIC' ./configure \
-  --prefix=/opt/ruby2.1.34 \
+  --prefix=/usr/local \
   --enable-shared \
   --disable-install-doc \
   --enable-load-relative
@@ -73,7 +73,7 @@ RUN fpm \
     -d zlib1g-dev \
     -C /tmp/fpm \
     -p /ruby-2.1.34_37s~precise_amd64.deb \
-    opt
+    usr
 `, 18)
 
 	assert.Equal(t, dockerFileFromTemplate("ubuntu:12.04", "2.1.34", "amd64", "37s~precise", []string{"01_strict_hostname_checking.patch"}, 18).String(), dockerfile_output)
