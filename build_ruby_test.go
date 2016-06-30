@@ -59,7 +59,7 @@ WORKDIR /
 RUN fpm \
     -s dir \
     -t deb \
-    -n ruby-2.1.34 \
+    -n ruby \
     -a amd64 \
     -v 2.1.34 \
     --iteration 37s~precise \
