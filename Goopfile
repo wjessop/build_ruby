@@ -1,4 +1,4 @@
 github.com/google/uuid/uuid
-github.com/codegangsta/cli
+github.com/urfave/cli
 github.com/fsouza/go-dockerclient
 github.com/wsxiaoys/terminal/color
