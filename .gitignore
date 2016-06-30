@@ -6,3 +6,4 @@ bin/build_ruby
 *.so
 .DS_Store
 bindata.go
+RELEASE.md
