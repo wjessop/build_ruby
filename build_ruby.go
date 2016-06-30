@@ -333,6 +333,8 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 	switch distro {
 	case "centos:6.6":
 		template_location = "data/Dockerfile-centos.template"
+	case "ubuntu:16.04":
+		template_location = "data/Dockerfile-xenial.template"
 	default:
 		template_location = "data/Dockerfile.template"
 	}
