@@ -102,7 +102,7 @@ func main() {
 	app.Run(os.Args)
 }
 
-func buildRuby(c *cli.Context) {
+func buildRuby(c *cli.Context) error {
 	if c.String("ruby") == "" {
 		color.Fprintln(os.Stderr, "@{r!}You didn't specify a Ruby version to build!")
 		cli.ShowAppHelp(c)
@@ -188,6 +188,8 @@ func buildRuby(c *cli.Context) {
 	if err := docker_client.RemoveContainer(docker.RemoveContainerOptions{ID: container.ID, RemoveVolumes: true, Force: false}); err != nil {
 		panic(err)
 	}
+
+	return nil
 }
 
 func patchFilePathsFromRubyVersion(version string) []string {
