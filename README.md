@@ -10,9 +10,9 @@
 
 [Follow the instructions here](http://docs.docker.io/installation/)
 
-#### 1.1 OS X
+#### 1.2 OS X
 
-##### 1.1.1 An existing Docker host somewhere
+##### 1.2.1 An existing Docker host somewhere
 
 Advanced usage! If you've got a Docker instance running somewhere already, for instance another server, you need to set these environment variables:
 
@@ -28,7 +28,7 @@ Change as needed. The files required in the certs dir are:
 
 For simpler usage see section 1.1.2, "Run Docker locally using a VM"
 
-##### 1.1.2 Run Docker locally using a VM
+##### 1.2.2 Run Docker locally using a VM
 
 On [this page](http://docs.docker.io/installation/mac/) follow these tasks:
 
@@ -39,7 +39,7 @@ Next, [create and start a docker-machine image](https://docs.docker.com/machine/
 
 You can now run docker commands locally on your mac.
 
-#### 1.2 Install pre-requisite tools
+#### 1.3 Install pre-requisite tools
 
     $ make setup
 
