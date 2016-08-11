@@ -26,7 +26,7 @@ Change as needed. The files required in the certs dir are:
 * cert.pem: The client certificate
 * key.pem: The client key
 
-For simpler usage see section 1.1.2, "Run Docker locally using a VM"
+For simpler usage see section 1.2.2, "Run Docker locally using a VM"
 
 ##### 1.2.2 Run Docker locally using a VM
 
