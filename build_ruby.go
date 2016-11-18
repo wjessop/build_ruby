@@ -45,10 +45,12 @@ const image_tag string = "ruby_build"
 
 func init() {
 	endpoint := "unix:///var/run/docker.sock"
-	docker_client, err := docker.NewClient(endpoint)
+	client, err := docker.NewClient(endpoint)
 	if err != nil {
 		panic(err)
 	}
+
+	docker_client = client
 }
 
 func main() {
@@ -245,9 +247,8 @@ func copyPackageFromContainerToLocalFs(container *docker.Container, filename str
 	color.Println("@{g!}Copying package out of the container")
 
 	var buf bytes.Buffer
-	if err := docker_client.CopyFromContainer(docker.CopyFromContainerOptions{
-		Container:    container.ID,
-		Resource:     filename,
+	if err := docker_client.DownloadFromContainer(container.ID, docker.DownloadFromContainerOptions{
+		Path:         filename,
 		OutputStream: &buf,
 	}); err != nil {
 		panic(err)
