@@ -32,7 +32,7 @@ WORKDIR /
 RUN fpm \
     -s dir \
     -t rpm \
-    -n ruby \
+    -n ruby-{{.RubyVersion}} \
     -a {{.Arch}} \
     -v {{.RubyVersion}} \
     {{.Iteration}}

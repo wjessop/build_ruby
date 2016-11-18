@@ -29,7 +29,7 @@ WORKDIR /
 RUN fpm \
     -s dir \
     -t deb \
-    -n ruby \
+    -n ruby-{{.RubyVersion}} \
     -a {{.Arch}} \
     -v {{.RubyVersion}} \
     {{.Iteration}}
