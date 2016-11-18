@@ -12,30 +12,7 @@
 
 #### 1.2 OS X
 
-##### 1.2.1 An existing Docker host somewhere
-
-Advanced usage! If you've got a Docker instance running somewhere already, for instance another server, you need to set these environment variables:
-
-    export DOCKER_CERT_PATH=$HOME/path/to/docker/certs
-    export DOCKER_HOST=tcp://192.168.1.79:2376
-    export DOCKER_TLS_VERIFY=1
-
-Change as needed. The files required in the certs dir are:
-
-* ca.pem: The ca certificate
-* cert.pem: The client certificate
-* key.pem: The client key
-
-For simpler usage see section 1.2.2, "Run Docker locally using a VM"
-
-##### 1.2.2 Run Docker locally using a VM
-
-On [this page](http://docs.docker.io/installation/mac/) follow these tasks:
-
- * Installing VirtualBox
- * Installing docker-machine using HomeBrew
-
-Next, [create and start a docker-machine image](https://docs.docker.com/machine/get-started/)
+Follow [this page](https://docs.docker.com/engine/installation/mac/) to install Docker for mac.
 
 You can now run docker commands locally on your mac.
 
