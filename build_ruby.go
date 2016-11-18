@@ -9,7 +9,6 @@ import (
 	"github.com/urfave/cli"
 	"github.com/wsxiaoys/terminal/color"
 	"io"
-	"net/url"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -45,25 +44,13 @@ var (
 const image_tag string = "ruby_build"
 
 func init() {
-	u, err := url.Parse(os.Getenv("DOCKER_HOST"))
+	endpoint := "unix:///var/run/docker.sock"
+	client, err := docker.NewClient(endpoint)
 	if err != nil {
 		panic(err)
 	}
-	u.Scheme = "https"
-	docker_endpoint = u.String()
 
-	c, err := docker.NewClient(docker_endpoint)
-
-	tr, err := NewHTTPSClient(os.Getenv("DOCKER_CERT_PATH"))
-	if err != nil {
-		panic(err)
-	}
-	c.HTTPClient = tr
-
-	if err != nil {
-		panic(err)
-	}
-	docker_client = c
+	docker_client = client
 }
 
 func main() {
@@ -260,9 +247,8 @@ func copyPackageFromContainerToLocalFs(container *docker.Container, filename str
 	color.Println("@{g!}Copying package out of the container")
 
 	var buf bytes.Buffer
-	if err := docker_client.CopyFromContainer(docker.CopyFromContainerOptions{
-		Container:    container.ID,
-		Resource:     filename,
+	if err := docker_client.DownloadFromContainer(container.ID, docker.DownloadFromContainerOptions{
+		Path:         filename,
 		OutputStream: &buf,
 	}); err != nil {
 		panic(err)
