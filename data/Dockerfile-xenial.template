@@ -43,4 +43,4 @@ RUN fpm \
     -d zlib1g-dev \
     -C /tmp/fpm \
     -p /{{.FileName}} \
-    usr
+    opt

@@ -46,4 +46,4 @@ RUN fpm \
     -d zlib-devel \
     -C /tmp/fpm \
     -p /{{.FileName}} \
-    usr
+    opt
