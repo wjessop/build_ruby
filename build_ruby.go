@@ -262,7 +262,7 @@ func copyPackageFromContainerToLocalFs(container *docker.Container, filename str
 		panic(err)
 	}
 
-	color.Printf("@{g!}Extracting pckage file %s (%d bytes)\n", tar_header.Name, tar_header.Size)
+	color.Printf("@{g!}Extracting package file %s (%d bytes)\n", tar_header.Name, tar_header.Size)
 
 	out, err := os.Create(filename)
 	if err != nil {
