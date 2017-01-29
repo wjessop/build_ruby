@@ -95,7 +95,7 @@ func dataDockerfileCentosTemplate() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/Dockerfile-centos.template", size: 1939, mode: os.FileMode(420), modTime: time.Unix(1479500206, 0)}
+	info := bindataFileInfo{name: "data/Dockerfile-centos.template", size: 1939, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -115,7 +115,7 @@ func dataDockerfileXenialTemplate() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/Dockerfile-xenial.template", size: 1579, mode: os.FileMode(420), modTime: time.Unix(1479500198, 0)}
+	info := bindataFileInfo{name: "data/Dockerfile-xenial.template", size: 1579, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -135,7 +135,7 @@ func dataDockerfileTemplate() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/Dockerfile.template", size: 1583, mode: os.FileMode(420), modTime: time.Unix(1479500188, 0)}
+	info := bindataFileInfo{name: "data/Dockerfile.template", size: 1583, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -155,7 +155,7 @@ func dataPatches10001_for_tests() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/1.0.0/01_for_tests", size: 3, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/1.0.0/01_for_tests", size: 3, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -175,7 +175,7 @@ func dataPatches10002_for_tests() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/1.0.0/02_for_tests", size: 3, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/1.0.0/02_for_tests", size: 3, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -195,7 +195,7 @@ func dataPatches193P55101_strict_hostname_checkingPatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/1.9.3-p551/01_strict_hostname_checking.patch", size: 13196, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/1.9.3-p551/01_strict_hostname_checking.patch", size: 13196, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -215,7 +215,7 @@ func dataPatches200P001_readlinePatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/2.0.0-p0/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/2.0.0-p0/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -235,7 +235,7 @@ func dataPatches200P19501_readlinePatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/2.0.0-p195/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/2.0.0-p195/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -255,7 +255,7 @@ func dataPatches200P24701_readlinePatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/2.0.0-p247/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/2.0.0-p247/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -275,7 +275,7 @@ func dataPatches200P35301_readlinePatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/2.0.0-p353/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/2.0.0-p353/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -295,7 +295,7 @@ func dataPatches200P45101_readlinePatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/2.0.0-p451/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/2.0.0-p451/01_readline.patch", size: 1151, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -315,7 +315,7 @@ func dataPatches21001_readlinePatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/2.1.0/01_readline.patch", size: 1712, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/2.1.0/01_readline.patch", size: 1712, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -335,7 +335,7 @@ func dataPatches21101_readlinePatch() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "data/patches/2.1.1/01_readline.patch", size: 1712, mode: os.FileMode(420), modTime: time.Unix(1479486320, 0)}
+	info := bindataFileInfo{name: "data/patches/2.1.1/01_readline.patch", size: 1712, mode: os.FileMode(420), modTime: time.Unix(1485444272, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

@@ -7,7 +7,6 @@ import (
 	"github.com/fsouza/go-dockerclient"
 	"github.com/google/uuid"
 	"github.com/urfave/cli"
-	"github.com/wsxiaoys/terminal/color"
 	"io"
 	"os"
 	"path/filepath"
@@ -91,13 +90,13 @@ func main() {
 
 func buildRuby(c *cli.Context) error {
 	if c.String("ruby") == "" {
-		color.Fprintln(os.Stderr, "@{r!}You didn't specify a Ruby version to build!")
+		fmt.Fprintln(os.Stderr, "@{r!}You didn't specify a Ruby version to build!")
 		cli.ShowAppHelp(c)
 		os.Exit(1)
 	}
 
 	if distros[c.String("distro")] == "" {
-		color.Fprintln(os.Stderr, "@{r!}You specified a distro that I don't know how to build for")
+		fmt.Fprintln(os.Stderr, "@{r!}You specified a distro that I don't know how to build for")
 		cli.ShowAppHelp(c)
 		os.Exit(1)
 	}
@@ -112,8 +111,8 @@ func buildRuby(c *cli.Context) error {
 	var patch_file_full_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
 
 	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), fileBasePaths(patch_file_full_paths), parallel_make_tasks)
-	color.Println("@{g!}Using Dockerfile:")
-	color.Printf("@{gc}%s\n", dockerfile)
+	fmt.Println("@{g!}Using Dockerfile:")
+	fmt.Printf("@{gc}%s\n", dockerfile)
 
 	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_full_paths)
 
@@ -134,7 +133,7 @@ func buildRuby(c *cli.Context) error {
 	if err := docker_client.BuildImage(opts); err != nil {
 		panic(err)
 	}
-	color.Printf("@{g!}Created image with name %s\n", image_name)
+	fmt.Printf("@{g!}Created image with name %s\n", image_name)
 
 	image, err := docker_client.InspectImage(image_name)
 	if err != nil {
@@ -150,7 +149,7 @@ func buildRuby(c *cli.Context) error {
 
 	*/
 
-	color.Printf("@{g!}Creating container with from image id %s\n", image.ID)
+	fmt.Printf("@{g!}Creating container with from image id %s\n", image.ID)
 	config := docker.Config{AttachStdout: false, AttachStdin: false, Image: image.ID, Cmd: []string{"date"}}
 	container_uuid, err := uuid.NewRandom()
 	if err != nil {
@@ -166,12 +165,12 @@ func buildRuby(c *cli.Context) error {
 	// See https://github.com/wjessop/build_ruby/issues/2
 	if err := docker_client.StopContainer(container.ID, 1); err != nil {
 		// panic(err)
-		color.Printf("@{r!}Failed to stop container %d, error was: %s\n", container.ID, err.Error())
+		fmt.Printf("@{r!}Failed to stop container %d, error was: %s\n", container.ID, err.Error())
 	}
 
 	copyPackageFromContainerToLocalFs(container, rubyPackageFileName(c.String("ruby"), c.String("iteration"), c.String("arch"), c.String("distro")))
 
-	color.Println("@{g!}Removing container:", container.ID)
+	fmt.Println("@{g!}Removing container:", container.ID)
 	if err := docker_client.RemoveContainer(docker.RemoveContainerOptions{ID: container.ID, RemoveVolumes: true, Force: false}); err != nil {
 		panic(err)
 	}
@@ -188,7 +187,7 @@ func patchFilePathsFromRubyVersion(version string) []string {
 	}
 
 	sort.Strings(patch_files)
-	color.Printf("@{g}Found patch files for current Ruby version: %v\n", patch_files)
+	fmt.Printf("@{g}Found patch files for current Ruby version: %v\n", patch_files)
 	return patch_files
 }
 
@@ -214,7 +213,7 @@ func createTarFileFromDockerfile(dockerfile *bytes.Buffer, patch_file_paths []st
 	}
 
 	for _, path := range patch_file_paths {
-		color.Printf("@{g}Adding patch file to the tar: %s (at path %s)\n", patch_file_paths, filepath.Base(path))
+		fmt.Printf("@{g}Adding patch file to the tar: %s (at path %s)\n", patch_file_paths, filepath.Base(path))
 
 		asset_bytes, err := Asset(path)
 		if err != nil {
@@ -244,7 +243,7 @@ func createTarFileFromDockerfile(dockerfile *bytes.Buffer, patch_file_paths []st
 }
 
 func copyPackageFromContainerToLocalFs(container *docker.Container, filename string) {
-	color.Println("@{g!}Copying package out of the container")
+	fmt.Println("@{g!}Copying package out of the container")
 
 	var buf bytes.Buffer
 	if err := docker_client.DownloadFromContainer(container.ID, docker.DownloadFromContainerOptions{
@@ -262,7 +261,7 @@ func copyPackageFromContainerToLocalFs(container *docker.Container, filename str
 		panic(err)
 	}
 
-	color.Printf("@{g!}Extracting package file %s (%d bytes)\n", tar_header.Name, tar_header.Size)
+	fmt.Printf("@{g!}Extracting package file %s (%d bytes)\n", tar_header.Name, tar_header.Size)
 
 	out, err := os.Create(filename)
 	if err != nil {
