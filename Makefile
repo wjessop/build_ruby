@@ -15,8 +15,11 @@ clean:
 	rm -f bin/*
 	rm -f *deb
 
+# Break the rules as goop likes to exit 1 for various upstream reasons that 
+# won't break the build. Less confusing this way.
 deps:
-	$(GOPATH)/bin/goop install
+	$(GOPATH)/bin/goop install || true
+	echo "This likes to exit 1 - don't be alarmed, try the build."
 
 update_deps:
 	$(GOPATH)/bin/goop update

@@ -16,7 +16,7 @@ Follow [this page](https://docs.docker.com/engine/installation/mac/) to install 
 
 You can now run docker commands locally on your mac.
 
-#### 1.3 Install pre-requisite tools
+#### 1.3 Install pre-requisite tools and dependencies
 
     $ make setup
     $ make deps
