@@ -19,6 +19,7 @@ You can now run docker commands locally on your mac.
 #### 1.3 Install pre-requisite tools
 
     $ make setup
+    $ make deps
 
 ## Running it
 

@@ -7,3 +7,4 @@ bin/build_ruby
 .DS_Store
 bindata.go
 RELEASE.md
+.vendor
