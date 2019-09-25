@@ -30,6 +30,9 @@ var (
 		"ubuntu_xenial": "ubuntu:16.04",
 		"ubuntu:16.04":  "ubuntu:16.04",
 
+		"ubuntu_bionic": "ubuntu:18.04",
+		"ubuntu:18.04":  "ubuntu:18.04",
+
 		"centos:6.6": "centos:6.6",
 	}
 
@@ -320,6 +323,8 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 		template_location = "data/Dockerfile-centos.template"
 	case "ubuntu:16.04":
 		template_location = "data/Dockerfile-xenial.template"
+	case "ubuntu:18.04":
+		template_location = "data/Dockerfile-bionic.template"
 	default:
 		template_location = "data/Dockerfile.template"
 	}
