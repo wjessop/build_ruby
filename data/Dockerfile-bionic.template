@@ -38,7 +38,7 @@ RUN fpm \
     -d libgdbm-dev \
     -d libncurses5-dev \
     -d libreadline-dev \
-    -d libssl1.0.0 \
+    -d libssl1.0-dev \
     -d libyaml-dev \
     -d zlib1g-dev \
     -C /tmp/fpm \
