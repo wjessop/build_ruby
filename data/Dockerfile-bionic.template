@@ -2,7 +2,7 @@ FROM {{.Distro}}
 RUN apt-get update
 RUN apt-get install -y build-essential \
     libc6-dev libffi-dev libgdbm-dev libncurses5-dev \
-    libreadline-dev libssl-dev libyaml-dev zlib1g-dev \
+    libreadline-dev libssl1.0-dev libyaml-dev zlib1g-dev \
     curl ruby ruby-dev
 RUN ["gem", "install", "fpm", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
 
@@ -38,7 +38,7 @@ RUN fpm \
     -d libgdbm-dev \
     -d libncurses5-dev \
     -d libreadline-dev \
-    -d libssl-dev \
+    -d libssl1.0.0 \
     -d libyaml-dev \
     -d zlib1g-dev \
     -C /tmp/fpm \

@@ -1,11 +1,9 @@
 github.com/BurntSushi/toml #3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005
-github.com/cpuguy83/go-md2man #f79a8a8ca69da163eee19ab442bedad7a35bba5a
-github.com/docker/docker #91870ed382131ffa3bd7865893582106d236a982
+github.com/cpuguy83/go-md2man #eda4fa589184806b8720ea3b9146491209877a10
+github.com/docker/docker #28b645755a6bbfd26dac73d9cb7200394828f47d
 github.com/docker/go-units #519db1ee28dcc9fd2474ae59fca29a810482bfb1
-github.com/fsouza/go-dockerclient #7453581b914b07d62fe9c2e943849dfa2086af80
+github.com/fsouza/go-dockerclient #a958d2e31b6c581391fe589cf11c2d208ae03e9f
 github.com/google/uuid/uuid #c2e93f3ae59f2904160ceaab466009f965df46d6
 github.com/gorilla/mux #884b5ffcbd3a11b730f0b75f5c86ac408753c34d
-github.com/ijc/Gotty #a8b993ba6abdb0e0c12b0125c603323a71c7790c
-github.com/urfave/cli #6b59274855a5e61d181cc36de8bcb6777a93b1da
-golang.org/x/sys #2aa67d56cdd77167a5fb51358e8c3ce04bad68bb
-gopkg.in/yaml.v2 #51d6538a90f86fe93ac480b35f37b2be17fef232
+github.com/urfave/cli #a221e662f14fd7404302444a5c4293409a401210
+gopkg.in/yaml.v2 #f221b8435cfb71e54062f6c6e99e9ade30b124d5
