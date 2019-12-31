@@ -19,6 +19,7 @@ clean:
 # won't break the build. Less confusing this way.
 deps:
 	$(GOPATH)/bin/goop install || true
+	mv .vendor/tmp/* .vendor/ || true
 	echo "This likes to exit 1 - don't be alarmed, try the build."
 
 update_deps:
