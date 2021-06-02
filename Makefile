@@ -1,5 +1,5 @@
 all: assets
-	$(GOPATH)/bin/goop go build -o bin/build_ruby
+	GO111MODULE=off $(GOPATH)/bin/goop go build -o bin/build_ruby
 
 setup:
 	go get -u github.com/jteeuwen/go-bindata/go-bindata...
@@ -15,7 +15,7 @@ clean:
 	rm -f bin/*
 	rm -f *deb
 
-# Break the rules as goop likes to exit 1 for various upstream reasons that 
+# Break the rules as goop likes to exit 1 for various upstream reasons that
 # won't break the build. Less confusing this way.
 deps:
 	$(GOPATH)/bin/goop install || true
