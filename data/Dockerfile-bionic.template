@@ -4,7 +4,10 @@ RUN apt-get install -y build-essential \
     libc6-dev libffi-dev libgdbm-dev libncurses5-dev \
     libreadline-dev libssl1.0-dev libyaml-dev zlib1g-dev \
     curl ruby ruby-dev
-RUN ["gem", "install", "fpm:1.11.0", "--bindir=/usr/bin", "--no-rdoc", "--no-ri"]
+RUN ["/usr/bin/gem", "install", "bundler", "-v", "1.17.3", "--no-rdoc", "--no-ri"]
+ADD Gemfile /
+ADD Gemfile.lock /
+RUN ["bundle", "install"]
 
 RUN curl {{.DownloadUrl}}|tar oxzC /tmp
 {{range .Patches}}ADD {{.}} /

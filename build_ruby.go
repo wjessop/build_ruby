@@ -112,12 +112,13 @@ func buildRuby(c *cli.Context) error {
 	}
 
 	var patch_file_full_paths []string = patchFilePathsFromRubyVersion(c.String("ruby"))
+	var gemfile_path, gemfile_lock_path = gemfilesFromDistro(distros[c.String("distro")])
 
 	var dockerfile *bytes.Buffer = dockerFileFromTemplate(distros[c.String("distro")], c.String("ruby"), c.String("arch"), c.String("iteration"), fileBasePaths(patch_file_full_paths), parallel_make_tasks)
 	fmt.Println("@{g!}Using Dockerfile:")
 	fmt.Printf("@{gc}%s\n", dockerfile)
 
-	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_full_paths)
+	var build_tarfile *bytes.Buffer = createTarFileFromDockerfile(dockerfile, patch_file_full_paths, gemfile_path, gemfile_lock_path)
 
 	image_uuid, err := uuid.NewRandom()
 	if err != nil {
@@ -194,7 +195,7 @@ func patchFilePathsFromRubyVersion(version string) []string {
 	return patch_files
 }
 
-func createTarFileFromDockerfile(dockerfile *bytes.Buffer, patch_file_paths []string) *bytes.Buffer {
+func createTarFileFromDockerfile(dockerfile *bytes.Buffer, patch_file_paths []string, gemfile_path string, gemfile_lock_path string) *bytes.Buffer {
 	// Create a buffer to write our archive to.
 	buf := new(bytes.Buffer)
 
@@ -235,6 +236,44 @@ func createTarFileFromDockerfile(dockerfile *bytes.Buffer, patch_file_paths []st
 		if _, err := tw.Write(asset_bytes); err != nil {
 			panic(err)
 		}
+	}
+
+	fmt.Printf("@{g}Adding %s to the tar as Gemfile\n", gemfile_path)
+
+	asset_bytes, err := Asset(gemfile_path)
+	if err != nil {
+		panic(err)
+	}
+
+	hdr = &tar.Header{
+		Name: "Gemfile",
+		Size: int64(len(asset_bytes)),
+	}
+	if err := tw.WriteHeader(hdr); err != nil {
+		panic(err)
+	}
+
+	if _, err := tw.Write(asset_bytes); err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("@{g}Adding %s to the tar as Gemfile.lock\n", gemfile_lock_path)
+
+	asset_bytes, err = Asset(gemfile_path)
+	if err != nil {
+		panic(err)
+	}
+
+	hdr = &tar.Header{
+		Name: "Gemfile.lock",
+		Size: int64(len(asset_bytes)),
+	}
+	if err := tw.WriteHeader(hdr); err != nil {
+		panic(err)
+	}
+
+	if _, err := tw.Write(asset_bytes); err != nil {
+		panic(err)
 	}
 
 	// Make sure to check the error on Close.
@@ -350,6 +389,19 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 	}
 
 	return buf
+}
+
+func gemfilesFromDistro(distro string) (string, string) {
+	switch distro {
+	case "centos:6.6":
+		return "data/Gemfile.centos", "data/Gemfile.centos.lock"
+	case "ubuntu:16.04":
+		return "data/Gemfile.xenial", "data/Gemfile.xenial.lock"
+	case "ubuntu:18.04":
+		return "data/Gemfile.bionic", "data/Gemfile.bionic.lock"
+	default:
+		return "data/Gemfile.template", "data/Gemfile.template.lock"
+	}
 }
 
 func rubyDownloadUrl(version string) string {
