@@ -1,6 +1,6 @@
 github.com/BurntSushi/toml #3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005
 github.com/cpuguy83/go-md2man #eda4fa589184806b8720ea3b9146491209877a10
-github.com/docker/docker #28b645755a6bbfd26dac73d9cb7200394828f47d
+github.com/docker/docker #6f4fbef82718212e593626419182f31a9f604316
 github.com/docker/go-units #519db1ee28dcc9fd2474ae59fca29a810482bfb1
 github.com/fsouza/go-dockerclient #a958d2e31b6c581391fe589cf11c2d208ae03e9f
 github.com/google/uuid/uuid #c2e93f3ae59f2904160ceaab466009f965df46d6
