@@ -2,14 +2,14 @@ all: assets
 	GO111MODULE=off $(GOPATH)/bin/goop go build -o bin/build_ruby
 
 setup:
-	go get -u github.com/jteeuwen/go-bindata/go-bindata...
-	go get -u github.com/karmakaze/goop
+	brew install go-bindata
+	go install github.com/karmakaze/goop@latest
 
 test: assets
-	$(GOPATH)/bin/goop go test
+	$GOPATH/bin/goop go test
 
 assets:
-	${GOPATH}/bin/go-bindata data/...
+	go-bindata data/...
 
 clean:
 	rm -f bin/*

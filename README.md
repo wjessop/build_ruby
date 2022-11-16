@@ -8,15 +8,31 @@
 
 #### 1.1 Linux
 
-[Follow the instructions here](http://docs.docker.io/installation/)
+[Follow the instructions here to install Docker](http://docs.docker.io/installation/)
+[Follow the instructions here to install Go if necessary](https://go.dev/doc/install)
 
 #### 1.2 OS X
 
-Follow [this page](https://docs.docker.com/engine/installation/mac/) to install Docker for mac.
+[Follow the instructions here to install Docker](https://docs.docker.com/engine/installation/mac/) to install Docker for Mac.
 
-You can now run docker commands locally on your mac.
+If you need to install `go` on your Mac, best install it through Homebrew:
 
-#### 1.3 Install pre-requisite tools and dependencies
+```
+brew install go
+go version
+```
+Please note that in newer installations of Go, `GOPATH` is assumed at your $HOME/go. For this repository to build however, you'll still need to explicitly set the GOPATH variable to run `make`.
+
+```
+echo 'export GOPATH=$HOME/go' >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+#### 1.3 Install work
+
+Follow the [README](https://github.com/basecamp/work#first-time-setup) in order to install `work`.
+
+#### 1.4 Install pre-requisite tools and dependencies
 
     $ make setup
     $ make deps
@@ -25,8 +41,7 @@ You can now run docker commands locally on your mac.
 
 ### 2. Clone and build this repo
 
-    $ git clone git@github.com:wjessop/build_ruby.git
-    $ cd build_ruby
+    $ work cd build_ruby
     $ make
 
 ## Usage
@@ -68,10 +83,15 @@ See the Makefile for more functions.
 
 Make sure you ran ````export DOCKER_HOST=tcp://localhost:4243```` in the terminal you are trying to use docker/build_ruby from
 
+## Errors while running `make`
+
+This repository collects its internal dependencies in `Goopfile.lock`. If you run into issues while running `make`, try upgrading a problematic package to a newer commit SHA. So far, that has helped solve cryptic nested dependency issues.
+
 ## Todo
 
 * Test that a package test is actually created, perhaps requiring Docker to be running
 * Support Other Linux distros/package types
+* Migrate out of `goop` dependency management
 
 ## How to contribute
 
@@ -98,7 +118,7 @@ Take a look at the TODO list or known issues for some inspiration if you need it
 * [The Docker API docs](http://docs.docker.io/reference/api/docker_remote_api_v1.10/)
 * [The Ruby download page](http://docs.docker.io/reference/api/docker_remote_api_v1.10/)
 * [The go-dockerclient lib](https://github.com/fsouza/go-dockerclient)
-* [go-bindata Github page](github.com/jteeuwen/go-bindata)
+* [go-bindata Github page](https://github.com/kevinburke/go-bindata)
 
 ## LICENSE
 
