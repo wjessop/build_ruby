@@ -556,27 +556,28 @@ func AssetNames() []string {
 }
 
 // _bindata is a table, holding each asset generator, mapped to its name.
-var _bindata = map[string]func() (*asset, error){
-	"data/Dockerfile-bionic.template":                           dataDockerfileBionicTemplate,
-	"data/Dockerfile-xenial.template":                           dataDockerfileXenialTemplate,
-	"data/Dockerfile.template":                                  dataDockerfileTemplate,
-	"data/Gemfile.bionic":                                       dataGemfileBionic,
-	"data/Gemfile.bionic.lock":                                  dataGemfileBionicLock,
-	"data/Gemfile.template":                                     dataGemfileTemplate,
-	"data/Gemfile.template.lock":                                dataGemfileTemplateLock,
-	"data/Gemfile.xenial":                                       dataGemfileXenial,
-	"data/Gemfile.xenial.lock":                                  dataGemfileXenialLock,
-	"data/patches/1.0.0/01_for_tests":                           dataPatches10001_for_tests,
-	"data/patches/1.0.0/02_for_tests":                           dataPatches10002_for_tests,
-	"data/patches/1.9.3-p551/01_strict_hostname_checking.patch": dataPatches193P55101_strict_hostname_checkingPatch,
-	"data/patches/2.0.0-p0/01_readline.patch":                   dataPatches200P001_readlinePatch,
-	"data/patches/2.0.0-p195/01_readline.patch":                 dataPatches200P19501_readlinePatch,
-	"data/patches/2.0.0-p247/01_readline.patch":                 dataPatches200P24701_readlinePatch,
-	"data/patches/2.0.0-p353/01_readline.patch":                 dataPatches200P35301_readlinePatch,
-	"data/patches/2.0.0-p451/01_readline.patch":                 dataPatches200P45101_readlinePatch,
-	"data/patches/2.1.0/01_readline.patch":                      dataPatches21001_readlinePatch,
-	"data/patches/2.1.1/01_readline.patch":                      dataPatches21101_readlinePatch,
+var _bindata = map[string]func() ([]byte, error){
+	"data/Dockerfile-bionic.template":                           data_dockerfile_bionic_template,
+	"data/Dockerfile-xenial.template":                           data_dockerfile_xenial_template,
+	"data/Dockerfile.template":                                  data_dockerfile_template,
+	"data/Gemfile.bionic":                                       data_gemfile_bionic,
+	"data/Gemfile.bionic.lock":                                  data_gemfile_bionic_lock,
+	"data/Gemfile.template":                                     data_gemfile_template,
+	"data/Gemfile.template.lock":                                data_gemfile_template_lock,
+	"data/Gemfile.xenial":                                       data_gemfile_xenial,
+	"data/Gemfile.xenial.lock":                                  data_gemfile_xenial_lock,
+	"data/patches/1.0.0/01_for_tests":                           data_patches_1_0_0_01_for_tests,
+	"data/patches/1.0.0/02_for_tests":                           data_patches_1_0_0_02_for_tests,
+	"data/patches/1.9.3-p551/01_strict_hostname_checking.patch": data_patches_1_9_3_p551_01_strict_hostname_checking_patch,
+	"data/patches/2.0.0-p0/01_readline.patch":                   data_patches_2_0_0_p0_01_readline_patch,
+	"data/patches/2.0.0-p195/01_readline.patch":                 data_patches_2_0_0_p195_01_readline_patch,
+	"data/patches/2.0.0-p247/01_readline.patch":                 data_patches_2_0_0_p247_01_readline_patch,
+	"data/patches/2.0.0-p353/01_readline.patch":                 data_patches_2_0_0_p353_01_readline_patch,
+	"data/patches/2.0.0-p451/01_readline.patch":                 data_patches_2_0_0_p451_01_readline_patch,
+	"data/patches/2.1.0/01_readline.patch":                      data_patches_2_1_0_01_readline_patch,
+	"data/patches/2.1.1/01_readline.patch":                      data_patches_2_1_1_01_readline_patch,
 }
+
 
 // AssetDebug is true if the assets were built with the debug flag enabled.
 const AssetDebug = false
@@ -618,50 +619,50 @@ func AssetDir(name string) ([]string, error) {
 	return rv, nil
 }
 
-type bintree struct {
-	Func     func() (*asset, error)
-	Children map[string]*bintree
+type _bintree_t struct {
+	Func     func() ([]byte, error)
+	Children map[string]*_bintree_t
 }
 
-var _bintree = &bintree{nil, map[string]*bintree{
-	"data": {nil, map[string]*bintree{
-		"Dockerfile-bionic.template": {dataDockerfileBionicTemplate, map[string]*bintree{}},
-		"Dockerfile-xenial.template": {dataDockerfileXenialTemplate, map[string]*bintree{}},
-		"Dockerfile.template": {dataDockerfileTemplate, map[string]*bintree{}},
-		"Gemfile.bionic": {dataGemfileBionic, map[string]*bintree{}},
-		"Gemfile.bionic.lock": {dataGemfileBionicLock, map[string]*bintree{}},
-		"Gemfile.template": {dataGemfileTemplate, map[string]*bintree{}},
-		"Gemfile.template.lock": {dataGemfileTemplateLock, map[string]*bintree{}},
-		"Gemfile.xenial": {dataGemfileXenial, map[string]*bintree{}},
-		"Gemfile.xenial.lock": {dataGemfileXenialLock, map[string]*bintree{}},
-		"patches": {nil, map[string]*bintree{
-			"1.0.0": {nil, map[string]*bintree{
-				"01_for_tests": {dataPatches10001_for_tests, map[string]*bintree{}},
-				"02_for_tests": {dataPatches10002_for_tests, map[string]*bintree{}},
+var _bintree = &_bintree_t{nil, map[string]*_bintree_t{
+	"data": &_bintree_t{nil, map[string]*_bintree_t{
+		"Dockerfile-bionic.template": &_bintree_t{data_dockerfile_bionic_template, map[string]*_bintree_t{}},
+		"Dockerfile-xenial.template": &_bintree_t{data_dockerfile_xenial_template, map[string]*_bintree_t{}},
+		"Dockerfile.template":        &_bintree_t{data_dockerfile_template, map[string]*_bintree_t{}},
+		"Gemfile.bionic":             &_bintree_t{data_gemfile_bionic, map[string]*_bintree_t{}},
+		"Gemfile.bionic.lock":        &_bintree_t{data_gemfile_bionic_lock, map[string]*_bintree_t{}},
+		"Gemfile.template":           &_bintree_t{data_gemfile_template, map[string]*_bintree_t{}},
+		"Gemfile.template.lock":      &_bintree_t{data_gemfile_template_lock, map[string]*_bintree_t{}},
+		"Gemfile.xenial":             &_bintree_t{data_gemfile_xenial, map[string]*_bintree_t{}},
+		"Gemfile.xenial.lock":        &_bintree_t{data_gemfile_xenial_lock, map[string]*_bintree_t{}},
+		"patches": &_bintree_t{nil, map[string]*_bintree_t{
+			"1.0.0": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_for_tests": &_bintree_t{data_patches_1_0_0_01_for_tests, map[string]*_bintree_t{}},
+				"02_for_tests": &_bintree_t{data_patches_1_0_0_02_for_tests, map[string]*_bintree_t{}},
 			}},
-			"1.9.3-p551": {nil, map[string]*bintree{
-				"01_strict_hostname_checking.patch": {dataPatches193P55101_strict_hostname_checkingPatch, map[string]*bintree{}},
+			"1.9.3-p551": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_strict_hostname_checking.patch": &_bintree_t{data_patches_1_9_3_p551_01_strict_hostname_checking_patch, map[string]*_bintree_t{}},
 			}},
-			"2.0.0-p0": {nil, map[string]*bintree{
-				"01_readline.patch": {dataPatches200P001_readlinePatch, map[string]*bintree{}},
+			"2.0.0-p0": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_readline.patch": &_bintree_t{data_patches_2_0_0_p0_01_readline_patch, map[string]*_bintree_t{}},
 			}},
-			"2.0.0-p195": {nil, map[string]*bintree{
-				"01_readline.patch": {dataPatches200P19501_readlinePatch, map[string]*bintree{}},
+			"2.0.0-p195": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_readline.patch": &_bintree_t{data_patches_2_0_0_p195_01_readline_patch, map[string]*_bintree_t{}},
 			}},
-			"2.0.0-p247": {nil, map[string]*bintree{
-				"01_readline.patch": {dataPatches200P24701_readlinePatch, map[string]*bintree{}},
+			"2.0.0-p247": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_readline.patch": &_bintree_t{data_patches_2_0_0_p247_01_readline_patch, map[string]*_bintree_t{}},
 			}},
-			"2.0.0-p353": {nil, map[string]*bintree{
-				"01_readline.patch": {dataPatches200P35301_readlinePatch, map[string]*bintree{}},
+			"2.0.0-p353": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_readline.patch": &_bintree_t{data_patches_2_0_0_p353_01_readline_patch, map[string]*_bintree_t{}},
 			}},
-			"2.0.0-p451": {nil, map[string]*bintree{
-				"01_readline.patch": {dataPatches200P45101_readlinePatch, map[string]*bintree{}},
+			"2.0.0-p451": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_readline.patch": &_bintree_t{data_patches_2_0_0_p451_01_readline_patch, map[string]*_bintree_t{}},
 			}},
-			"2.1.0": {nil, map[string]*bintree{
-				"01_readline.patch": {dataPatches21001_readlinePatch, map[string]*bintree{}},
+			"2.1.0": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_readline.patch": &_bintree_t{data_patches_2_1_0_01_readline_patch, map[string]*_bintree_t{}},
 			}},
-			"2.1.1": {nil, map[string]*bintree{
-				"01_readline.patch": {dataPatches21101_readlinePatch, map[string]*bintree{}},
+			"2.1.1": &_bintree_t{nil, map[string]*_bintree_t{
+				"01_readline.patch": &_bintree_t{data_patches_2_1_1_01_readline_patch, map[string]*_bintree_t{}},
 			}},
 		}},
 	}},
