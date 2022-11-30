@@ -46,9 +46,8 @@ Follow the [README](https://github.com/basecamp/work#first-time-setup) in order 
 
 ## Usage
 
-    $ bin/build_ruby -r 2.1.0 -i 37s~precise -d ubuntu:12.04
-    $ bin/build_ruby -r 2.1.0 -d ubuntu:13.04
-    $ bin/build_ruby -r 2.1.0
+    $ bin/build_ruby -d ubuntu:18.04 -a amd64 -i "37s~bionic" -r 2.4.1
+    $ bin/build_ruby -d ubuntu:18.04:libssl -a amd64 -i "37s~bionic.2" -r 3.1.2
 
 ### Other options
 
