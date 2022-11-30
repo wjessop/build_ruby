@@ -1,5 +1,0 @@
-# Created with ruby 2.3.x used in xenial
-
-source 'https://rubygems.org'
-
-gem 'fpm', '1.11.0'
