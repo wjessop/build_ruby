@@ -18,22 +18,8 @@ import (
 
 var (
 	distros = map[string]string{
-		"ubuntu_precise": "ubuntu:12.04",
-		"ubuntu:12.04":   "ubuntu:12.04",
-
-		"ubuntu_raring": "ubuntu:13.04",
-		"ubuntu:13.04":  "ubuntu:13.04",
-
-		"ubuntu_trusty": "ubuntu:14.04",
-		"ubuntu:14.04":  "ubuntu:14.04",
-
-		"ubuntu_xenial": "ubuntu:16.04",
-		"ubuntu:16.04":  "ubuntu:16.04",
-
-		"ubuntu_bionic": "ubuntu:18.04",
-		"ubuntu:18.04":  "ubuntu:18.04",
-
-		"centos:6.6": "centos:6.6",
+		"ubuntu:18.04":        "ubuntu:18.04",
+		"ubuntu:18.04:libssl": "ubuntu:18.04:libssl", // drop this variant once we move beyond bionic
 	}
 
 	docker_client   *docker.Client
@@ -358,12 +344,10 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 	// This would be way better as a look up table, or with a more formal lookup process
 	var template_location string
 	switch distro {
-	case "centos:6.6":
-		template_location = "data/Dockerfile-centos.template"
-	case "ubuntu:16.04":
-		template_location = "data/Dockerfile-xenial.template"
 	case "ubuntu:18.04":
 		template_location = "data/Dockerfile-bionic.template"
+        case "ubuntu:18.04:libssl": // drop this variant once we move beyond bionic
+		template_location = "data/Dockerfile-bionic-libssl.template"
 	default:
 		template_location = "data/Dockerfile.template"
 	}
@@ -393,11 +377,9 @@ func dockerFileFromTemplate(distro, ruby_version, arch, iteration string, patche
 
 func gemfilesFromDistro(distro string) (string, string) {
 	switch distro {
-	case "centos:6.6":
-		return "data/Gemfile.centos", "data/Gemfile.centos.lock"
-	case "ubuntu:16.04":
-		return "data/Gemfile.xenial", "data/Gemfile.xenial.lock"
 	case "ubuntu:18.04":
+		return "data/Gemfile.bionic", "data/Gemfile.bionic.lock"
+	case "ubuntu:18.04:libssl": // drop this variant once we move beyond bionic
 		return "data/Gemfile.bionic", "data/Gemfile.bionic.lock"
 	default:
 		return "data/Gemfile.template", "data/Gemfile.template.lock"
