@@ -72,6 +72,8 @@ See the Makefile for more functions.
 
 ### Testing
 
+_Known to be broken!_
+
     make test
 
 ## Troubleshooting
